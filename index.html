@@ -341,6 +341,47 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:10
 .arq-card-foto{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--line);flex-shrink:0}
 .arq-card-name{font-size:12px;font-weight:500;color:var(--ink)}
 .arq-card-cargo{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.04em;margin-top:1px}
+
+/* ─── MODO CLOUD ─── */
+.modo-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;padding:3px 9px;border-radius:20px;letter-spacing:.04em}
+.modo-badge.viewer{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+.modo-badge.editor{background:var(--accent);color:#fff}
+.modo-badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.lock-overlay{position:fixed;inset:0;background:rgba(26,50,72,.55);display:flex;align-items:center;justify-content:center;z-index:9999;display:none}
+.lock-overlay.open{display:flex}
+.lock-box{background:var(--paper);border:1px solid var(--ink);border-radius:6px;padding:1.75rem;max-width:320px;width:90%;text-align:center}
+.lock-box h3{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;color:var(--ink)}
+.lock-box p{font-family:var(--mono);font-size:9px;color:var(--ink3);margin-bottom:14px;letter-spacing:.04em}
+.lock-input{width:100%;font-family:var(--mono);font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);outline:none;text-align:center;letter-spacing:.1em;margin-bottom:10px}
+.lock-input:focus{border-color:var(--accent)}
+.lock-error{font-family:var(--mono);font-size:9px;color:#E24B4A;margin-bottom:8px;display:none}
+.lock-btns{display:flex;gap:8px;justify-content:center}
+.btn-unlock{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:7px 20px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;border-radius:2px}
+.btn-unlock:hover{background:var(--accent);border-color:var(--accent)}
+.btn-cancelar-lock{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:7px 14px;border:1px solid var(--line);background:transparent;color:var(--ink3);cursor:pointer;border-radius:2px}
+/* ocultar controles de edición en modo viewer */
+body.modo-viewer .btn-add,
+body.modo-viewer .btn-del-row,
+body.modo-viewer .btn-add-entrega,
+body.modo-viewer .btn-add-pausa,
+body.modo-viewer .btn-add-ano,
+body.modo-viewer .det-btn-del,
+body.modo-viewer .det-btn,
+body.modo-viewer .ppto-total-input,
+body.modo-viewer .ppto-ano-input,
+body.modo-viewer .ppto-desglose-toggle,
+body.modo-viewer .nota-display,
+body.modo-viewer .inline-select,
+body.modo-viewer input[type=date],
+body.modo-viewer input[type=text],
+body.modo-viewer input[type=number],
+body.modo-viewer select:not(#filtArq):not(#filtEst):not(#planArq):not(#planAno),
+body.modo-viewer .sbtn.hi,
+body.modo-viewer .sbtn.del
+{pointer-events:none;opacity:.35}
+body.modo-viewer .btn-add{display:none}
+body.modo-viewer .btn-del-row{display:none}
 </style>
 </head>
 <body>
@@ -374,13 +415,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:10
 
 <!-- BARRA DE GUARDADO -->
 <div class="save-bar">
-  <span class="save-status" id="saveStatus">Iniciando...</span>
-  <button class="sbtn hi" onclick="guardarLocal()">💾 Guardar</button>
+  <span class="save-status" id="saveStatus">Cargando datos...</span>
+  <span class="modo-badge viewer" id="modoBadge"><span class="modo-badge-dot"></span>Vista pública</span>
+  <button class="sbtn" id="btnModoEdit" onclick="pedirContrasena()" style="margin-left:4px">🔓 Editar</button>
+  <button class="sbtn hi" id="btnGuardar" onclick="guardarNube()" style="display:none">☁ Guardar</button>
   <div class="save-sep"></div>
   <button class="sbtn" onclick="exportarJSON()">↓ Exportar</button>
   <button class="sbtn" onclick="document.getElementById('mImportar').classList.add('open')">↑ Importar</button>
-  <div class="save-sep"></div>
-  <button class="sbtn del" onclick="borrarLocal()">✕ Borrar local</button>
 </div>
 
 <!-- TABS -->
@@ -630,6 +671,21 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:10
     <div class="m-btns">
       <button class="btn-cancel" onclick="closeM('mEditArqs')">Cancelar</button>
       <button class="btn-ok" onclick="guardarEditArqs()">Guardar equipo</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONTRASEÑA EDITOR -->
+<div class="lock-overlay" id="lockOverlay">
+  <div class="lock-box">
+    <h3>Modo edición</h3>
+    <p>Ingresa la contraseña para activar<br>el modo de edición</p>
+    <input class="lock-input" type="password" id="lockInput" placeholder="••••••••••••"
+      onkeydown="if(event.key==='Enter')verificarClave()"/>
+    <div class="lock-error" id="lockError">Contraseña incorrecta</div>
+    <div class="lock-btns">
+      <button class="btn-cancelar-lock" onclick="closeLock()">Cancelar</button>
+      <button class="btn-unlock" onclick="verificarClave()">Ingresar</button>
     </div>
   </div>
 </div>
@@ -1471,28 +1527,123 @@ function syncArqPrincipal(){
   });
 }
 
-/* ─── GUARDAR LOCAL ─── */
+/* ─── SUPABASE CONFIG ─── */
+const SB_URL="https://tuvdvkyciokorxrfrnwm.supabase.co";
+const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR1dmR2a3ljaW9rb3J4cmZybndtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNjcwNTQsImV4cCI6MjA5MTk0MzA1NH0.M1nQTlIBPsppklfRL4_5M5Yw6rX5NOgpf735i0g0A9s";
+const EDIT_HASH="c812fd1c34a71d9078035a536b086060c883a2e294513c618360d0bb32915ed7";
 const LS_KEY="slep_barrancas_cartera_v1";
-function guardarLocal(){
-  try{
-    const data={PROJS,nxt,ts:new Date().toISOString()};
-    localStorage.setItem(LS_KEY,JSON.stringify(data));
-    setStatus("ok","💾 Guardado en este navegador · "+new Date().toLocaleTimeString("es-CL"));
-  }catch(e){setStatus("warn","⚠ Error al guardar: "+e.message)}
+let modoEditor=false;
+let DB_ROW_ID=null;
+
+/* ─── MODO EDITOR ─── */
+function pedirContrasena(){
+  document.getElementById("lockInput").value="";
+  document.getElementById("lockError").style.display="none";
+  document.getElementById("lockOverlay").classList.add("open");
+  setTimeout(()=>document.getElementById("lockInput").focus(),100);
 }
+function closeLock(){document.getElementById("lockOverlay").classList.remove("open")}
+async function verificarClave(){
+  const val=document.getElementById("lockInput").value;
+  const hash=await sha256(val);
+  if(hash===EDIT_HASH){
+    modoEditor=true;
+    closeLock();
+    document.body.classList.remove("modo-viewer");
+    document.getElementById("modoBadge").className="modo-badge editor";
+    document.getElementById("modoBadge").innerHTML='<span class="modo-badge-dot"></span>Modo edición';
+    document.getElementById("btnModoEdit").style.display="none";
+    document.getElementById("btnGuardar").style.display="inline-flex";
+    setStatus("ok","✓ Modo edición activado — tus cambios se guardan en la nube");
+  } else {
+    document.getElementById("lockError").style.display="block";
+    document.getElementById("lockInput").value="";
+    document.getElementById("lockInput").focus();
+  }
+}
+async function sha256(str){
+  const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+/* ─── CARGAR DESDE NUBE ─── */
+async function cargarNube(){
+  setStatus("","☁ Cargando datos...");
+  try{
+    const r=await fetch(SB_URL+"/rest/v1/proyectos?select=id,datos&order=id.asc&limit=1",{
+      headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY}
+    });
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    const rows=await r.json();
+    if(rows&&rows.length>0){
+      DB_ROW_ID=rows[0].id;
+      const d=rows[0].datos;
+      if(d&&d.proyectos&&d.proyectos.length>0){
+        PROJS=d.proyectos;
+        nxt=d.nxt||10;
+        setStatus("ok","✓ Datos cargados desde la nube · "+new Date().toLocaleTimeString("es-CL"));
+      } else {
+        setStatus("","☁ Sin proyectos aún en la nube");
+      }
+    }
+  }catch(e){
+    setStatus("warn","⚠ Error al cargar: "+e.message);
+    // Fallback a localStorage
+    cargarLocal();
+  }
+  // Iniciar en modo viewer
+  document.body.classList.add("modo-viewer");
+  renderKpis();renderLista();fillAnoSelects();
+}
+
+/* ─── GUARDAR EN NUBE ─── */
+async function guardarNube(){
+  if(!modoEditor){pedirContrasena();return}
+  setStatus("","☁ Guardando...");
+  try{
+    const datos={proyectos:PROJS,nxt,ts:new Date().toISOString()};
+    let r;
+    if(DB_ROW_ID){
+      r=await fetch(SB_URL+"/rest/v1/proyectos?id=eq."+DB_ROW_ID,{
+        method:"PATCH",
+        headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
+        body:JSON.stringify({datos,updated_at:new Date().toISOString()})
+      });
+    } else {
+      r=await fetch(SB_URL+"/rest/v1/proyectos",{
+        method:"POST",
+        headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=representation"},
+        body:JSON.stringify({datos})
+      });
+      if(r.ok){const rows=await r.json();if(rows[0])DB_ROW_ID=rows[0].id;}
+    }
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    // también guardar local como backup
+    localStorage.setItem(LS_KEY,JSON.stringify(datos));
+    setStatus("ok","☁ Guardado en la nube · "+new Date().toLocaleTimeString("es-CL"));
+  }catch(e){
+    setStatus("warn","⚠ Error al guardar en nube: "+e.message+". Guardando local...");
+    guardarLocal();
+  }
+}
+
+/* ─── GUARDAR LOCAL (backup) ─── */
+const guardarLocal=()=>{
+  try{
+    localStorage.setItem(LS_KEY,JSON.stringify({proyectos:PROJS,nxt,ts:new Date().toISOString()}));
+  }catch(e){}
+};
 function cargarLocal(){
   try{
     const raw=localStorage.getItem(LS_KEY);
-    if(!raw){setStatus("","Sin datos guardados — los cambios se perderán al cerrar");return false}
-    const data=JSON.parse(raw);
-    PROJS=data.PROJS||PROJS;nxt=data.nxt||nxt;
-    const d=new Date(data.ts);
-    setStatus("ok","✓ Datos restaurados · guardado el "+d.toLocaleDateString("es-CL")+" "+d.toLocaleTimeString("es-CL"));
+    if(!raw)return false;
+    const d=JSON.parse(raw);
+    PROJS=d.proyectos||d.PROJS||PROJS;nxt=d.nxt||nxt;
+    setStatus("ok","⚠ Usando datos locales (sin conexión)");
     return true;
-  }catch(e){setStatus("warn","⚠ Error al cargar: "+e.message);return false}
+  }catch(e){return false}
 }
 function borrarLocal(){
-  if(!confirm("¿Eliminar los datos guardados en este navegador? Esta acción no afecta tus archivos JSON exportados."))return;
   localStorage.removeItem(LS_KEY);
   setStatus("warn","Datos locales eliminados");
 }
@@ -1562,19 +1713,18 @@ function resetImport(){
   if(fi)fi.value="";
 }
 
-/* ─── AUTO-GUARDAR cada 2 min ─── */
+/* ─── AUTO-GUARDAR cada 3 min si es editor ─── */
 setInterval(()=>{
-  if(PROJS.length)guardarLocal();
-},120000);
+  if(modoEditor&&PROJS.length)guardarNube();
+},180000);
 
 /* ─── INIT ─── */
-// Cargar fotos en checkboxes del modal nuevo
 Object.entries(ARQ_FOTOS).forEach(([k,src])=>{
   const img=document.getElementById("foto_chk_"+k);
   if(img)img.src=src;
 });
-cargarLocal();
-renderKpis();renderLista();fillAnoSelects();
+// Cargar desde nube (incluye render)
+cargarNube();
 </script>
 </body>
 </html>
