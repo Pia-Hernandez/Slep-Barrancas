@@ -382,6 +382,54 @@ body.modo-viewer .sbtn.del
 {pointer-events:none;opacity:.35}
 body.modo-viewer .btn-add{display:none}
 body.modo-viewer .btn-del-row{display:none}
+
+/* ─── TIMELINE CARGA ─── */
+.carga-ctrl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
+.carga-ctrl select{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:6px 11px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;text-transform:uppercase;outline:none;border-radius:0}
+.carga-wrap{display:flex;flex-direction:column;gap:18px}
+.carga-row{background:var(--paper);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.carga-row-header{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line2)}
+.carga-arq-foto{width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--line);flex-shrink:0}
+.carga-arq-init{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;flex-shrink:0}
+.carga-arq-info{flex:1}
+.carga-arq-nombre{font-size:13px;font-weight:600;color:var(--ink)}
+.carga-arq-cargo{font-family:var(--mono);font-size:8px;color:var(--ink3);letter-spacing:.05em;margin-top:1px}
+.carga-arq-count{font-family:var(--mono);font-size:9px;color:var(--ink3);background:var(--line2);padding:3px 9px;border-radius:20px}
+.carga-timeline{padding:20px 20px 24px;overflow-x:auto}
+.carga-tl-inner{min-width:600px;position:relative}
+/* línea base */
+.carga-axis{position:relative;height:44px;display:flex;align-items:center;margin-bottom:12px}
+.carga-axis-line{position:absolute;left:0;right:0;top:50%;height:4px;background:var(--line);border-radius:2px;transform:translateY(-50%)}
+/* flechas de proyecto */
+.carga-flechas{display:flex;flex-direction:column;gap:10px}
+.carga-proj-row{display:flex;align-items:center;gap:0;position:relative;min-height:40px}
+.carga-proj-label{font-family:var(--mono);font-size:8px;color:var(--ink3);width:140px;flex-shrink:0;padding-right:10px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.carga-proj-track{flex:1;position:relative;height:40px}
+/* flecha principal */
+.carga-flecha{position:absolute;top:50%;transform:translateY(-50%);height:32px;display:flex;align-items:center;border-radius:3px 0 0 3px;cursor:pointer;transition:opacity .15s;min-width:80px}
+.carga-flecha:hover{opacity:.85}
+.carga-flecha-body{height:100%;flex:1;display:flex;align-items:center;padding:0 10px;clip-path:polygon(0 0,calc(100%) 0,100% 50%,calc(100%) 100%,0 100%)}
+.carga-flecha-punta{width:0;height:0;border-top:16px solid transparent;border-bottom:16px solid transparent;flex-shrink:0}
+.carga-flecha-text{font-family:var(--mono);font-size:8px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px;line-height:1.2}
+.carga-flecha-hito{font-family:var(--mono);font-size:7px;color:rgba(255,255,255,.8);margin-top:2px;white-space:nowrap}
+/* badge de etapa */
+.carga-etapa-badge{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:7px;padding:1px 6px;border-radius:10px;white-space:nowrap;font-weight:700;letter-spacing:.04em}
+/* sin proyectos */
+.carga-empty{padding:16px 20px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.05em}
+
+/* ─── CAMPOS INLINE EDITABLES ─── */
+.inline-field-wrap{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.inline-field-input{font-family:var(--mono);font-size:11px;padding:3px 7px;border:0.5px solid var(--line);border-radius:3px;background:var(--bg);color:var(--ink);outline:none;min-width:80px;max-width:140px}
+.inline-field-input:focus{border-color:var(--accent)}
+.inline-saved{font-family:var(--mono);font-size:8px;color:#3B6D11;opacity:0;transition:opacity .3s}
+.inline-saved.show{opacity:1}
+/* días efectivos display */
+.dias-efectivos-wrap{display:flex;flex-direction:column;gap:2px}
+.dias-ef-main{font-size:20px;font-weight:700;font-family:var(--mono);line-height:1}
+.dias-ef-sub{font-family:var(--mono);font-size:8px;color:var(--ink3);letter-spacing:.05em}
+.dias-ef-revision{font-family:var(--mono);font-size:8px;padding:2px 7px;border-radius:2px;display:inline-block;margin-top:3px}
+.dias-ef-revision.activa{background:#FAEEDA;color:#854F0B}
+.dias-ef-revision.pausado{background:#F3E8FD;color:#6B35A0}
 </style>
 </head>
 <body>
@@ -428,6 +476,7 @@ body.modo-viewer .btn-del-row{display:none}
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('lista',this)">Lista de proyectos</button>
   <button class="tab-btn" onclick="switchTab('planner',this)">Planner</button>
+  <button class="tab-btn" onclick="switchTab('carga',this)">Carga por arquitecto</button>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════
@@ -500,6 +549,27 @@ body.modo-viewer .btn-del-row{display:none}
     </div>
   </div>
   <div id="plannerContent"></div>
+</div>
+
+
+<!-- VISTA CARGA POR ARQUITECTO -->
+<div id="v-carga" class="view">
+  <div class="carga-ctrl">
+    <select id="cargaFiltArq" onchange="renderCarga()">
+      <option value="">— Todos los arquitectos —</option>
+      <option value="JLE">J.L. Escalona</option>
+      <option value="EL">E. Lizarde</option>
+      <option value="PF">P. Fernández</option>
+      <option value="PH">Pía H.</option>
+    </select>
+    <select id="cargaFiltEst" onchange="renderCarga()">
+      <option value="">— Todos los estados —</option>
+      <option value="En curso">En curso</option>
+      <option value="Pendiente">Pendiente</option>
+      <option value="Completado">Completado</option>
+    </select>
+  </div>
+  <div class="carga-wrap" id="cargaWrap"></div>
 </div>
 
 </div><!-- /wrap -->
@@ -701,17 +771,17 @@ body.modo-viewer .btn-del-row{display:none}
           pmds{f}, sm1{i,fi}, rate{f}
 ══════════════════ */
 let PROJS=[
-  {id:1,n:"Monseñor Enrique Alvear",   bip:"50001659",ano:2025,arq:"JLE",arqs:["JLE"],nota:"",monto_total:225725,desglose:[{ano:2025,monto:225725}],     est:"Pendiente",ini:"2025-03-01",obs:"",tipo:"conservacion",entregas:[],h:{}},
-  {id:2,n:"Mustafa Kemal Ataturk",     bip:"50001538",ano:2025,arq:"EL",arqs:["EL"],nota:"",monto_total:301327,desglose:[{ano:2025,monto:301327}],     est:"Pendiente",ini:"2025-04-15",obs:"",tipo:"",entregas:[],h:{}},
-  {id:3,n:"Gladys Valenzuela",         bip:"S/I",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:250000,desglose:[{ano:2025,monto:50000},{ano:2026,monto:200000}],est:"En curso", ini:"2025-06-01",obs:"",tipo:"",entregas:[],h:{}},
-  {id:4,n:"Ignacio Carrera Pinto",     bip:"S/I",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:100000,desglose:[{ano:2026,monto:100000}],     est:"Pendiente",ini:"2026-01-10",obs:"",tipo:"",entregas:[],h:{}},
-  {id:5,n:"República de Estados Unidos",bip:"S/I",    ano:2026,arq:"JLE",arqs:["JLE"],nota:"",monto_total:50000,desglose:[{ano:2026,monto:50000}],     est:"En curso", ini:"2026-03-17",obs:"",tipo:"",entregas:[],
+  {id:1,n:"Monseñor Enrique Alvear",   bip:"50001659",cod_infra:"",ano:2025,arq:"JLE",arqs:["JLE"],nota:"",monto_total:225725,desglose:[{ano:2025,monto:225725}],     est:"Pendiente",ini:"2025-03-01",obs:"",tipo:"conservacion",entregas:[],h:{}},
+  {id:2,n:"Mustafa Kemal Ataturk",     bip:"50001538",cod_infra:"",ano:2025,arq:"EL",arqs:["EL"],nota:"",monto_total:301327,desglose:[{ano:2025,monto:301327}],     est:"Pendiente",ini:"2025-04-15",obs:"",tipo:"",entregas:[],h:{}},
+  {id:3,n:"Gladys Valenzuela",         bip:"S/I",cod_infra:"",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:250000,desglose:[{ano:2025,monto:50000},{ano:2026,monto:200000}],est:"En curso", ini:"2025-06-01",obs:"",tipo:"",entregas:[],h:{}},
+  {id:4,n:"Ignacio Carrera Pinto",     bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:100000,desglose:[{ano:2026,monto:100000}],     est:"Pendiente",ini:"2026-01-10",obs:"",tipo:"",entregas:[],h:{}},
+  {id:5,n:"República de Estados Unidos",bip:"S/I",cod_infra:"",    ano:2026,arq:"JLE",arqs:["JLE"],nota:"",monto_total:50000,desglose:[{ano:2026,monto:50000}],     est:"En curso", ini:"2026-03-17",obs:"",tipo:"",entregas:[],
     h:{vt1:{f:"2026-03-17",n:"Visita a terreno"},dev:{i:"2026-03-17",fi:"2026-04-01"}}},
-  {id:6,n:"Sargento Candelaria",       bip:"S/I",     ano:2026,arq:"EL",arqs:["EL"],nota:"",monto_total:150000,desglose:[{ano:2025,monto:20000},{ano:2026,monto:130000}],est:"Pendiente",ini:"2026-02-01",obs:"",tipo:"",entregas:[],h:{}},
-  {id:7,n:"Sor Teresa de los Andes",   bip:"S/I",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:100000,desglose:[{ano:2025,monto:100000}],     est:"Pendiente",ini:"2025-09-01",obs:"",tipo:"",entregas:[],h:{}},
-  {id:8,n:"Vicente Huidobro",          bip:"S/I",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:100000,desglose:[{ano:2026,monto:100000}],     est:"En curso", ini:"2026-03-31",obs:"",tipo:"",entregas:[],
+  {id:6,n:"Sargento Candelaria",       bip:"S/I",cod_infra:"",     ano:2026,arq:"EL",arqs:["EL"],nota:"",monto_total:150000,desglose:[{ano:2025,monto:20000},{ano:2026,monto:130000}],est:"Pendiente",ini:"2026-02-01",obs:"",tipo:"",entregas:[],h:{}},
+  {id:7,n:"Sor Teresa de los Andes",   bip:"S/I",cod_infra:"",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:100000,desglose:[{ano:2025,monto:100000}],     est:"Pendiente",ini:"2025-09-01",obs:"",tipo:"",entregas:[],h:{}},
+  {id:8,n:"Vicente Huidobro",          bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:100000,desglose:[{ano:2026,monto:100000}],     est:"En curso", ini:"2026-03-31",obs:"",tipo:"",entregas:[],
     h:{vt1:{f:"2026-03-31",n:"31 mar"},vt2:{i:"2026-04-13",fi:"2026-04-17",n:"13–17 abr"}}},
-  {id:9,n:"Golda Meir",                bip:"S/I",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:0,desglose:[],     est:"En curso", ini:"2026-04-13",obs:"",tipo:"",entregas:[],
+  {id:9,n:"Golda Meir",                bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:0,desglose:[],     est:"En curso", ini:"2026-04-13",obs:"",tipo:"",entregas:[],
     h:{dev:{i:"2026-04-13",fi:"2026-04-24"}}},
 ];
 /* ══════ FIN DATOS ══════ */
@@ -764,7 +834,87 @@ const pD=s=>{if(!s)return null;const[y,m,d]=s.split("-");return new Date(+y,+m-1
 const fmtD=s=>{if(!s)return null;const d=pD(s);return`${d.getDate().toString().padStart(2,"0")}/${(d.getMonth()+1).toString().padStart(2,"0")}/${d.getFullYear()}`};
 const fmtS=s=>{if(!s)return null;const d=pD(s);return`${d.getDate().toString().padStart(2,"0")}/${(d.getMonth()+1).toString().padStart(2,"0")}`};
 const pesos=n=>n?"$ "+n.toLocaleString("es-CL"):"—";
-const dias=ini=>{if(!ini)return 0;const d=pD(ini);return Math.max(0,Math.floor((HOY-d)/86400000))};
+// Fecha del hito más reciente completado
+function getFechaHitoReciente(p){
+  const keys=['vt1','vt2','vt3','dev','rev','sub','pinf','si1','si2','pmds','sm1','rate'];
+  let ultima=null;
+  for(const k of keys){
+    const hv=p.h[k];if(!hv)continue;
+    const f=hv.fi||hv.f||hv.i;
+    if(f){const d=pD(f);if(!ultima||d>ultima)ultima=d;}
+  }
+  return ultima;
+}
+
+// Períodos de revisión automática (Infra y MDS)
+function getPeriodosRevision(p){
+  const periodos=[];
+  // Revisión Inframineduc: entre pinf.f y si1.i (o si2.i o hoy si no hay subs)
+  if(p.h.pinf?.f){
+    const ini=pD(p.h.pinf.f);
+    const fin=p.h.si1?.i?pD(p.h.si1.i):(p.h.si2?.i?pD(p.h.si2.i):null);
+    if(ini)periodos.push({ini,fin,tipo:'infra'});
+  }
+  // Revisión MDS: entre pmds.f y sm1.i (o hoy si no hay subs)
+  if(p.h.pmds?.f){
+    const ini=pD(p.h.pmds.f);
+    const fin=p.h.sm1?.i?pD(p.h.sm1.i):null;
+    if(ini)periodos.push({ini,fin,tipo:'mds'});
+  }
+  return periodos;
+}
+
+// Estado actual del proyecto respecto a revisiones
+function getEstadoDias(p){
+  const rev=getPeriodosRevision(p);
+  for(const r of rev){
+    if(r.ini&&!r.fin&&HOY>=r.ini)return r.tipo==='infra'?'revision_infra':'revision_mds';
+  }
+  return 'activo';
+}
+
+// Días efectivos = días calendario - días en revisión automática - días en pausa manual
+function diasEfectivos(p){
+  if(!p.ini)return 0;
+  const ini=pD(p.ini);
+  const hitoReciente=getFechaHitoReciente(p);
+  const fin=hitoReciente&&hitoReciente<HOY?hitoReciente:HOY;
+  const totalCal=Math.max(0,Math.floor((fin-ini)/86400000));
+  if(!totalCal)return 0;
+
+  // Sumar días en revisión automática
+  let diasRev=0;
+  for(const r of getPeriodosRevision(p)){
+    if(!r.ini)continue;
+    const s=Math.max(r.ini,ini);
+    const e=r.fin?Math.min(r.fin,fin):fin;
+    if(e>s)diasRev+=Math.floor((e-s)/86400000);
+  }
+
+  // Sumar días en pausa manual
+  let diasPausa=0;
+  for(const pa of (p.pausas||[])){
+    if(!pa.desde)continue;
+    const ps=pD(pa.desde),pe=pa.hasta?pD(pa.hasta):fin;
+    if(!ps)continue;
+    const s=Math.max(ps,ini),e=Math.min(pe,fin);
+    if(e>s)diasPausa+=Math.floor((e-s)/86400000)+1;
+  }
+  return Math.max(0,totalCal-diasRev-diasPausa);
+}
+
+function diasCalendario(p){
+  if(!p.ini)return 0;
+  const ini=pD(p.ini);
+  const hitoReciente=getFechaHitoReciente(p);
+  const fin=hitoReciente&&hitoReciente<HOY?hitoReciente:HOY;
+  return Math.max(0,Math.floor((fin-ini)/86400000));
+}
+
+const dias=p=>{
+  if(typeof p==='string'||typeof p==='undefined')return 0;
+  return diasEfectivos(p);
+};
 const hCnt=h=>Object.keys(h).filter(k=>{const v=h[k];return v&&(v.f||v.i)}).length;
 const estCls=e=>({"En curso":"est-curso","Pendiente":"est-pend","Completado":"est-ok"}[e]||"est-pend");
 const dcol=(d,maxD)=>{const r=d/(maxD||1);return r>0.8?"#E24B4A":r>0.5?"#EF9F27":"#3A7BA0"};
@@ -776,6 +926,7 @@ function switchTab(id,el){
   el.classList.add("active");
   document.getElementById("v-"+id).classList.add("active");
   if(id==="planner")renderPlanner();
+  if(id==="carga")renderCarga();
 }
 
 /* ─── toggleNA ─── */
@@ -1059,7 +1210,7 @@ function renderKpis(){
   const tot=ps.reduce((a,p)=>a+(p.monto_total||0),0);
   const ec=ps.filter(p=>p.est==="En curso").length;
   const ch=ps.filter(p=>hCnt(p.h)>0).length;
-  const maxD=ps.reduce((a,p)=>Math.max(a,dias(p.ini)),0);
+  const maxD=ps.reduce((a,p)=>Math.max(a,dias(p)),0);
   document.getElementById("kpis").innerHTML=`
     <div class="kpi" data-n="${ps.length}"><div class="kpi-l">Proyectos</div><div class="kpi-v">${ps.length}</div><div class="kpi-s">en cartera</div></div>
     <div class="kpi" data-n="${ec}"><div class="kpi-l">En curso</div><div class="kpi-v">${ec}</div><div class="kpi-s">activos</div></div>
@@ -1088,7 +1239,7 @@ function etapasHtml(p){
 }
 
 function projHtml(p,idx,maxD){
-  const a=ARQ[p.arq];const exp=EXP.has(p.id);const d=dias(p.ini);const dc=dcol(d,maxD);
+  const a=ARQ[p.arq];const exp=EXP.has(p.id);const d=dias(p);const dc=dcol(d,maxD);const estadoDias=getEstadoDias(p);
   const pct=Math.min(100,Math.round(d/(maxD||1)*100));
   const nh=hCnt(p.h);const tot=p.monto_total||0;const desglose=p.desglose||[];
   const htags=HDEF.filter(x=>p.h[x.k]&&(p.h[x.k].f||p.h[x.k].i)).map(x=>`<span class="htag" style="color:${x.col}">${x.lbl}</span>`).join("");
@@ -1110,10 +1261,14 @@ function projHtml(p,idx,maxD){
         <div class="p-name">${p.n}</div>
         <div class="p-meta"><span class="p-bip">BIP ${p.bip}</span>${nh>0?`<div class="htags">${htags}</div>`:""}</div>
       </div>
-      <div class="dias-block" onclick="toggle(${p.id})">
-        <div><div class="dias-num" style="color:${dc}">${d}</div>
-        <div class="dias-lbl">días<br>transcurridos</div>
-        <div class="dias-bar-track"><div class="dias-bar-fill" style="width:${pct}%;background:${dc}"></div></div></div>
+      <div class="dias-block" onclick="toggle(${p.id})" style="${estadoDias!=='activo'?'background:#FFF8F0':''}">
+        <div>
+          <div class="dias-num" style="color:${estadoDias==='revision_infra'?'#534AB7':estadoDias==='revision_mds'?'#993C1D':dc}">${d}</div>
+          <div class="dias-lbl">días<br>efectivos</div>
+          <div class="dias-bar-track"><div class="dias-bar-fill" style="width:${pct}%;background:${dc}"></div></div>
+          ${estadoDias==='revision_infra'?`<div style="font-family:var(--mono);font-size:6px;color:#534AB7;margin-top:3px;letter-spacing:.03em">EN REVISIÓN INFRA</div>`:''}
+          ${estadoDias==='revision_mds'?`<div style="font-family:var(--mono);font-size:6px;color:#993C1D;margin-top:3px;letter-spacing:.03em">EN REVISIÓN MDS</div>`:''}
+        </div>
       </div>
       <div class="p-right">
         <span class="est ${estCls(p.est)}">${p.est}</span>
@@ -1159,7 +1314,34 @@ function projHtml(p,idx,maxD){
         </div></div>
         <div class="det-field"><div class="dl">Tipología</div><div class="dv" style="font-size:11px">${p.tipo?TIPO_LABELS[p.tipo]||p.tipo:'<span style="color:var(--ink3);font-size:10px">— sin definir —</span>'}</div></div>
         <div class="det-field"><div class="dl">Inicio</div><div class="dv">${fmtD(p.ini)||"—"}</div></div>
-        <div class="det-field"><div class="dl">Días transcurridos</div><div class="dv" style="font-size:20px;color:${dc};font-family:var(--mono)">${d} <span style="font-size:9px;color:var(--ink3)">días</span></div></div>
+        <div class="det-field"><div class="dl">BIP</div>
+          <div class="dv">
+            <div class="inline-field-wrap">
+              <input class="inline-field-input" id="bip_inp_${p.id}" value="${p.bip||'S/I'}"
+                onchange="updCampoInline(${p.id},'bip',this.value)" placeholder="S/I"/>
+              <span class="inline-saved" id="bip_saved_${p.id}">✓</span>
+            </div>
+          </div>
+        </div>
+        <div class="det-field"><div class="dl">Cód. Inframineduc</div>
+          <div class="dv">
+            <div class="inline-field-wrap">
+              <input class="inline-field-input" id="codinf_inp_${p.id}" value="${p.cod_infra||''}"
+                onchange="updCampoInline(${p.id},'cod_infra',this.value)" placeholder="—"/>
+              <span class="inline-saved" id="codinf_saved_${p.id}">✓</span>
+            </div>
+          </div>
+        </div>
+        <div class="det-field"><div class="dl">Días efectivos</div>
+          <div class="dv">
+            <div class="dias-efectivos-wrap">
+              <span class="dias-ef-main" style="color:${estadoDias==='revision_infra'?'#534AB7':estadoDias==='revision_mds'?'#993C1D':dc}">${d}</span>
+              <span class="dias-ef-sub">de ${diasCalendario(p)} días calendario</span>
+              ${estadoDias==='revision_infra'?`<span class="dias-ef-revision activa">⏸ En revisión Inframineduc</span>`:''}
+              ${estadoDias==='revision_mds'?`<span class="dias-ef-revision activa" style="background:#FBEAF0;color:#993C1D">⏸ En revisión MDS</span>`:''}
+            </div>
+          </div>
+        </div>
         ${p.obs?`<div class="det-field"><div class="dl">Observaciones</div><div class="dv">${p.obs}</div></div>`:""}
       </div>
       <div class="ppto-section" id="ppto_sec_${p.id}">${renderPptoSection(p)}</div>
@@ -1196,7 +1378,7 @@ function agrupar(ps){
 
 function renderLista(){
   const ps=filt();
-  const maxD=ps.reduce((a,p)=>Math.max(a,dias(p.ini)),1);
+  const maxD=ps.reduce((a,p)=>Math.max(a,dias(p)),1);
   const gs=agrupar(ps);
   if(!ps.length){document.getElementById("lista").innerHTML='<div class="no-data">// sin proyectos para el filtro seleccionado</div>';return}
   document.getElementById("lista").innerHTML=gs.map(g=>{
@@ -1243,7 +1425,7 @@ function saveNuevo(){
   if(!selArqs.length){alert("Selecciona al menos un arquitecto");return}
   PROJS.push({id:nxt++,n,bip:document.getElementById("n_bip").value||"S/I",
     ano:parseInt(document.getElementById("n_ano").value),arq:selArqs[0],arqs:selArqs,
-    monto_total:parseInt(document.getElementById("n_monto_total").value)||0,desglose:recogerDesgloseNuevo(),
+    cod_infra:"",monto_total:parseInt(document.getElementById("n_monto_total").value)||0,desglose:recogerDesgloseNuevo(),
     est:document.getElementById("n_est").value,ini:document.getElementById("n_ini").value||null,
     obs:document.getElementById("n_obs").value,nota:document.getElementById("n_obs").value,
     tipo:document.getElementById("n_tipo").value,entregas:[],h:{}});
@@ -1461,6 +1643,22 @@ function showTT(e,html){
   tt.style.left=(e.clientX+12)+"px";tt.style.top=(e.clientY-10)+"px";
 }
 function hideTT(){document.getElementById("tooltip").classList.remove("show")}
+
+/* ─── CAMPOS INLINE EDITABLES ─── */
+function updCampoInline(id,campo,val){
+  const p=PROJS.find(x=>x.id===id);
+  if(!p)return;
+  p[campo]=val.trim();
+  // Mostrar feedback ✓
+  const savedId=campo==='bip'?'bip_saved_'+id:'codinf_saved_'+id;
+  const badge=document.getElementById(savedId);
+  if(badge){badge.classList.add('show');setTimeout(()=>badge.classList.remove('show'),1600);}
+  // Actualizar tag BIP en la fila si cambió
+  if(campo==='bip'){
+    const bipEl=document.querySelector('#pw'+id+' .p-bip');
+    if(bipEl)bipEl.textContent='BIP '+val;
+  }
+}
 
 /* ─── NOTA EDITABLE ─── */
 function editarNota(id){
@@ -1717,6 +1915,153 @@ function resetImport(){
 setInterval(()=>{
   if(modoEditor&&PROJS.length)guardarNube();
 },180000);
+
+
+/* ─── CARGA POR ARQUITECTO ─── */
+
+// Orden de etapas para determinar la más reciente
+const ETAPA_ORDEN = ['vt1','vt2','vt3','dev','rev','sub','pinf','si1','si2','pmds','sm1','rate'];
+const ETAPA_COLS = {
+  vt1:'#0F6E56',vt2:'#0F6E56',vt3:'#0F6E56',
+  dev:'#185FA5',rev:'#3B6D11',sub:'#A32D2D',
+  pinf:'#534AB7',si1:'#534AB7',si2:'#711580',
+  pmds:'#993C1D',sm1:'#854F0B',rate:'#0C447C'
+};
+const ETAPA_NOMBRES = {
+  vt1:'Visita terreno 1',vt2:'Visita terreno 2',vt3:'Visita terreno 3',
+  dev:'Desarrollo',rev:'Revisión',sub:'Subsanación',
+  pinf:'Pres. Inframineduc',si1:'Subs. Infra. 1',si2:'Subs. Infra. 2',
+  pmds:'Pres. MDS',sm1:'Subs. MDS',rate:'Rate MDS'
+};
+
+function getUltimaEtapa(p){
+  // retorna {key, col, nombre, fecha}
+  let ultimo = null;
+  const na = new Set();
+  const NA_MAP = {na_vt:['vt1','vt2','vt3'],na_dev:['dev'],na_rev:['rev'],na_sub:['sub'],na_inf:['pinf','si1','si2'],na_mds:['pmds','sm1'],na_rate:['rate']};
+  Object.entries(NA_MAP).forEach(([k,ks])=>{if(p.h[k])ks.forEach(x=>na.add(x))});
+  for(const k of ETAPA_ORDEN){
+    if(na.has(k))continue;
+    const hv=p.h[k];
+    if(!hv)continue;
+    const f=hv.f||hv.fi||hv.i;
+    if(f)ultimo={key:k,col:ETAPA_COLS[k],nombre:ETAPA_NOMBRES[k],fecha:f};
+  }
+  return ultimo;
+}
+
+function getProxEtapa(p, ultimaKey){
+  const na = new Set();
+  const NA_MAP = {na_vt:['vt1','vt2','vt3'],na_dev:['dev'],na_rev:['rev'],na_sub:['sub'],na_inf:['pinf','si1','si2'],na_mds:['pmds','sm1'],na_rate:['rate']};
+  Object.entries(NA_MAP).forEach(([k,ks])=>{if(p.h[k])ks.forEach(x=>na.add(x))});
+  const idx = ETAPA_ORDEN.indexOf(ultimaKey);
+  for(let i=idx+1;i<ETAPA_ORDEN.length;i++){
+    const k=ETAPA_ORDEN[i];
+    if(!na.has(k))return{key:k,col:ETAPA_COLS[k],nombre:ETAPA_NOMBRES[k]};
+  }
+  return null;
+}
+
+function renderCarga(){
+  const fa=document.getElementById("cargaFiltArq")?.value||"";
+  const fe=document.getElementById("cargaFiltEst")?.value||"";
+  const wrap=document.getElementById("cargaWrap");
+  if(!wrap)return;
+  const arqKeys=fa?[fa]:["JLE","EL","PF","PH"];
+  wrap.innerHTML=arqKeys.map(k=>{
+    const a=ARQ[k];if(!a)return"";
+    // Proyectos de este arquitecto
+    let ps=PROJS.filter(p=>(p.arqs||[p.arq]).includes(k));
+    if(fe)ps=ps.filter(p=>p.est===fe);
+    if(!ps.length)return`
+      <div class="carga-row">
+        <div class="carga-row-header">
+          <div class="carga-arq-init" style="background:${a.bg};color:${a.light}">${a.ini||k}</div>
+          <div class="carga-arq-info">
+            <div class="carga-arq-nombre" style="color:${a.col}">${a.full}</div>
+            <div class="carga-arq-cargo">${a.cargo}</div>
+          </div>
+          <span class="carga-arq-count">0 proyectos</span>
+        </div>
+        <div class="carga-empty">// Sin proyectos para el filtro seleccionado</div>
+      </div>`;
+
+    // Calcular posiciones relativas — distribuir flechas uniformemente
+    const n=ps.length;
+    const pct=n>1?90/(n-1):0;// % de espacio entre flechas
+
+    const flechas=ps.map((p,i)=>{
+      const ultima=getUltimaEtapa(p);
+      const col=ultima?ultima.col:(p.est==="En curso"?"#185FA5":p.est==="Completado"?"#3B6D11":"#8AABB8");
+      const hitoTxt=ultima?ultima.nombre:"Sin hitos";
+      const fechaTxt=ultima&&ultima.fecha?fmtS(ultima.fecha):"";
+      // posición: distribuir de 2% a 92%
+      const left=n===1?30:(2+i*pct);
+      const width=n===1?46:Math.min(46,85-left);
+      return`
+        <div class="carga-flecha" style="left:${left.toFixed(1)}%;width:${width.toFixed(1)}%;background:transparent"
+          onmouseenter="showTT(event,'${p.n.replace(/'/g,'&apos;')}<br>${hitoTxt}${fechaTxt?' · '+fechaTxt:''}<br>Estado: ${p.est}')"
+          onmouseleave="hideTT()">
+          <div style="display:flex;align-items:stretch;width:100%;height:32px">
+            <div style="flex:1;background:${col};display:flex;flex-direction:column;justify-content:center;padding:0 10px 0 8px;border-radius:3px 0 0 3px;min-width:0">
+              <div class="carga-flecha-text">${p.n}</div>
+              <div class="carga-flecha-hito">${hitoTxt}${fechaTxt?' · '+fechaTxt:''}</div>
+            </div>
+            <div style="width:0;height:0;border-top:16px solid transparent;border-bottom:16px solid transparent;border-left:14px solid ${col};flex-shrink:0"></div>
+          </div>
+        </div>`;
+    }).join('');
+
+    // Marcadores de eje — solo etapas con fecha, todas las proyectos
+    const ejeItems=ETAPA_ORDEN.map(ek=>{
+      const pConHito=ps.filter(p=>p.h[ek]&&(p.h[ek].f||p.h[ek].fi));
+      if(!pConHito.length)return"";
+      const f=pConHito[0].h[ek].f||pConHito[0].h[ek].fi;
+      return`<div style="position:absolute;left:${(2+ETAPA_ORDEN.indexOf(ek)/11*88).toFixed(1)}%;transform:translateX(-50%);top:50%;margin-top:-8px">
+        <div style="width:3px;height:16px;background:${ETAPA_COLS[ek]};border-radius:1px;margin:0 auto"></div>
+      </div>`;
+    }).join('');
+
+    // UNA SOLA LÍNEA con todas las flechas del arquitecto
+    const flW=Math.min(32,Math.floor(90/Math.max(ps.length,1)));
+    const flechasHtml=ps.map((p,i)=>{
+      const ultima=getUltimaEtapa(p);
+      const col=ultima?ultima.col:(p.est==="En curso"?"#185FA5":p.est==="Completado"?"#3B6D11":"#8AABB8");
+      const hitoTxt=ultima?ultima.nombre:"Sin hitos";
+      const fechaTxt=ultima&&ultima.fecha?fmtS(ultima.fecha):"";
+      const left=(2+i*(96/Math.max(ps.length,1))).toFixed(1);
+      return`<div style="position:absolute;top:50%;transform:translateY(-50%);left:${left}%;width:${flW}%;display:flex;align-items:stretch;height:34px;cursor:pointer"
+        onmouseenter="showTT(event,'<b>${p.n.replace(/'/g,"'")}</b><br>${hitoTxt}${fechaTxt?' · '+fechaTxt:''}<br>Estado: ${p.est}')"
+        onmouseleave="hideTT()">
+        <div style="flex:1;background:${col};display:flex;flex-direction:column;justify-content:center;padding:0 9px;border-radius:3px 0 0 3px;min-width:0;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.15)">
+          <div style="font-family:var(--mono);font-size:8px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.n}</div>
+          <div style="font-family:var(--mono);font-size:7px;color:rgba(255,255,255,.75);margin-top:1px;white-space:nowrap">${hitoTxt}${fechaTxt?' · '+fechaTxt:''}</div>
+        </div>
+        <div style="width:0;height:0;border-top:17px solid transparent;border-bottom:17px solid transparent;border-left:13px solid ${col};flex-shrink:0"></div>
+      </div>`;
+    }).join('');
+
+    return`
+      <div class="carga-row">
+        <div class="carga-row-header">
+          <img class="carga-arq-foto" src="${ARQ_FOTOS[k]||''}" alt="${a.full}" onerror="this.style.display='none'"/>
+          <div class="carga-arq-info">
+            <div class="carga-arq-nombre" style="color:${a.col}">${a.full}</div>
+            <div class="carga-arq-cargo">${a.cargo}</div>
+          </div>
+          <span class="carga-arq-count">${ps.length} proyecto${ps.length>1?"s":""}</span>
+        </div>
+        <div class="carga-timeline">
+          <div class="carga-tl-inner">
+            <div style="position:relative;height:54px">
+              <div style="position:absolute;left:0;right:0;top:50%;height:3px;background:var(--line);transform:translateY(-50%);border-radius:2px"></div>
+              ${flechasHtml}
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
 
 /* ─── INIT ─── */
 Object.entries(ARQ_FOTOS).forEach(([k,src])=>{
