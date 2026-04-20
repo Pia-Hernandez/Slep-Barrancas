@@ -877,34 +877,38 @@ function getEstadoDias(p){
   return 'activo';
 }
 
+// Normalizar fecha a medianoche local
+function norm(d){const n=new Date(d);n.setHours(0,0,0,0);return n;}
+
 // Días hábiles de trabajo efectivo:
-// Cuenta lun-vie desde inicio hasta HOY,
+// Cuenta lun-vie desde inicio hasta HOY (ambos inclusivos),
 // descontando períodos de revisión y pausas manuales
 function diasEfectivos(p){
   if(!p.ini)return 0;
-  const ini=pD(p.ini);
+  const ini=norm(pD(p.ini));
   if(!ini)return 0;
+  const hoy=norm(HOY);
 
-  // Días hábiles totales desde inicio hasta hoy
-  let total=diasHabiles(ini,HOY);
+  // Días hábiles totales desde inicio hasta hoy (inclusivo)
+  let total=diasHabiles(ini,hoy);
   if(!total)return 0;
 
   // Restar días hábiles en revisión automática
   for(const r of getPeriodosRevision(p)){
     if(!r.ini)continue;
-    const s=new Date(Math.max(r.ini,ini));
-    const e=r.fin?new Date(Math.min(r.fin,HOY)):new Date(HOY);
+    const s=norm(r.ini>ini?r.ini:ini);
+    const e=norm(r.fin?(r.fin<hoy?r.fin:hoy):hoy);
     if(e>=s)total-=diasHabiles(s,e);
   }
 
   // Restar días hábiles en pausas manuales
   for(const pa of (p.pausas||[])){
     if(!pa.desde)continue;
-    const ps=pD(pa.desde);
-    const pe=pa.hasta?pD(pa.hasta):HOY;
+    const ps=norm(pD(pa.desde));
+    const pe=norm(pa.hasta?pD(pa.hasta):hoy);
     if(!ps)continue;
-    const s=new Date(Math.max(ps,ini));
-    const e=new Date(Math.min(pe,HOY));
+    const s=norm(ps>ini?ps:ini);
+    const e=norm(pe<hoy?pe:hoy);
     if(e>=s)total-=diasHabiles(s,e);
   }
   return Math.max(0,total);
@@ -912,9 +916,10 @@ function diasEfectivos(p){
 
 function diasCalendario(p){
   if(!p.ini)return 0;
-  const ini=pD(p.ini);
+  const ini=norm(pD(p.ini));
   if(!ini)return 0;
-  return Math.max(0,Math.floor((HOY-ini)/86400000));
+  const hoy=norm(HOY);
+  return Math.max(0,Math.floor((hoy-ini)/86400000)+1);
 }
 
 const dias=p=>{
