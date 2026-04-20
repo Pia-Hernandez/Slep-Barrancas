@@ -836,14 +836,15 @@ const fmtS=s=>{if(!s)return null;const d=pD(s);return`${d.getDate().toString().p
 const pesos=n=>n?"$ "+n.toLocaleString("es-CL"):"—";
 // Fecha del hito más reciente completado
 function getFechaHitoReciente(p){
-  const keys=['vt1','vt2','vt3','dev','rev','sub','pinf','si1','si2','pmds','sm1','rate'];
-  let ultima=null;
-  for(const k of keys){
-    const hv=p.h[k];if(!hv)continue;
-    const f=hv.fi||hv.f||hv.i;
-    if(f){const d=pD(f);if(!ultima||d>ultima)ultima=d;}
+  // Contar hasta la fecha de término del desarrollo (dev.fi)
+  // Si dev.fi existe y es <= hoy, usar esa fecha
+  // Si dev.fi no existe pero dev.i existe, contar hasta hoy (en desarrollo)
+  // Si no hay desarrollo registrado, contar hasta hoy
+  if(p.h.dev?.fi){
+    const d=pD(p.h.dev.fi);
+    if(d&&d<=HOY)return d;
   }
-  return ultima;
+  return null; // null = contar hasta hoy
 }
 
 // Períodos de revisión automática (Infra y MDS)
