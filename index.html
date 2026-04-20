@@ -417,6 +417,80 @@ body.modo-viewer .btn-del-row{display:none}
 /* sin proyectos */
 .carga-empty{padding:16px 20px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.05em}
 
+/* ─── PAUSAS ─── */
+function renderPausas(p){
+  const paus=p.pausas||[];
+  // Calcular total de días hábiles pausados
+  let totalPausado=0;
+  paus.forEach(pa=>{
+    if(!pa.desde)return;
+    const ds=norm(pD(pa.desde));
+    const dh=pa.hasta?norm(pD(pa.hasta)):norm(HOY);
+    if(ds)totalPausado+=diasHabiles(ds,dh);
+  });
+
+  const resumen=paus.length?`<div class="pausas-resumen">
+    <span>Pausas registradas: <strong>${paus.length}</strong></span>
+    <span>Días hábiles pausados: <strong>${totalPausado}</strong></span>
+  </div>`:'';
+
+  if(!paus.length)
+    return`<div style="font-family:var(--mono);font-size:9px;color:var(--ink3);padding:3px 0">// Sin pausas — el contador usa días hábiles corridos</div>`;
+
+  return resumen+paus.map((pa,i)=>{
+    const activa=pa.desde&&!pa.hasta;
+    return`<div class="pausa-row${activa?' activa':''}">
+      <div class="pausa-field">
+        <label>Inicio pausa</label>
+        <input type="date" value="${pa.desde||''}" onchange="updPausa(${p.id},${i},'desde',this.value)"/>
+      </div>
+      <div class="pausa-field">
+        <label>Fin pausa <span style="opacity:.5">(vacío = activa)</span></label>
+        <input type="date" value="${pa.hasta||''}" onchange="updPausa(${p.id},${i},'hasta',this.value)"/>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+        ${activa?`<span class="pausa-badge-activa">⏸ activa</span>`:''}
+        <button class="btn-del-pausa" onclick="delPausa(${p.id},${i})" title="Eliminar pausa">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="pausa-field pausa-motivo">
+        <label>Motivo</label>
+        <input type="text" value="${pa.motivo||''}" placeholder="Ej: Espera visado, feriados..." onchange="updPausa(${p.id},${i},'motivo',this.value)"/>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addPausa(id){
+  const p=PROJS.find(x=>x.id===id);
+  if(!p.pausas)p.pausas=[];
+  if(p.pausas.some(pa=>pa.desde&&!pa.hasta)){
+    alert("Ya hay una pausa activa. Registra la fecha de fin antes de agregar otra.");
+    return;
+  }
+  p.pausas.push({desde:'',hasta:'',motivo:''});
+  reRenderPausas(id);
+}
+function delPausa(id,i){
+  const p=PROJS.find(x=>x.id===id);
+  if(p&&p.pausas){p.pausas.splice(i,1);reRenderPausas(id);renderLista();}
+}
+function updPausa(id,i,campo,val){
+  const p=PROJS.find(x=>x.id===id);
+  if(p&&p.pausas&&p.pausas[i]){
+    p.pausas[i][campo]=val;
+    reRenderPausas(id);
+    // refrescar contador en la fila
+    renderLista();
+  }
+}
+function reRenderPausas(id){
+  const p=PROJS.find(x=>x.id===id);
+  const el=document.getElementById('pausas_'+id);
+  if(el&&p)el.innerHTML=renderPausas(p);
+}
+
 /* ─── CAMPOS INLINE EDITABLES ─── */
 .inline-field-wrap{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .inline-field-input{font-family:var(--mono);font-size:11px;padding:3px 7px;border:0.5px solid var(--line);border-radius:3px;background:var(--bg);color:var(--ink);outline:none;min-width:80px;max-width:140px}
@@ -430,6 +504,25 @@ body.modo-viewer .btn-del-row{display:none}
 .dias-ef-revision{font-family:var(--mono);font-size:8px;padding:2px 7px;border-radius:2px;display:inline-block;margin-top:3px}
 .dias-ef-revision.activa{background:#FAEEDA;color:#854F0B}
 .dias-ef-revision.pausado{background:#F3E8FD;color:#6B35A0}
+
+/* ─── PAUSAS ─── */
+.pausas-wrap{margin-top:14px;border-top:1px solid var(--line2);padding-top:12px}
+.pausas-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.pausa-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;padding:8px 10px;background:var(--paper);border:0.5px solid var(--line);border-radius:3px;margin-bottom:5px}
+.pausa-row:hover{border-color:var(--accent2)}
+.pausa-row.activa{border-color:#EF9F27;background:#FFFBF2}
+.pausa-field label{font-family:var(--mono);font-size:7px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:3px}
+.pausa-field input{font-family:var(--mono);font-size:10px;padding:5px 7px;border:0.5px solid var(--line);background:var(--bg);color:var(--ink);outline:none;border-radius:2px;width:100%}
+.pausa-field input:focus{border-color:var(--accent)}
+.pausa-motivo{grid-column:1/-1}
+.pausa-motivo input{font-size:9px}
+.pausa-badge-activa{font-family:var(--mono);font-size:8px;background:#FAEEDA;color:#854F0B;padding:2px 7px;border-radius:2px;white-space:nowrap}
+.btn-del-pausa{width:24px;height:24px;border:none;background:transparent;cursor:pointer;color:var(--ink3);display:flex;align-items:center;justify-content:center;border-radius:3px;transition:all .12s;padding:0;align-self:center}
+.btn-del-pausa:hover{background:var(--danger-bg);color:var(--danger)}
+.btn-add-pausa{width:100%;font-family:var(--mono);font-size:8px;letter-spacing:.06em;text-transform:uppercase;padding:6px;border:1px dashed var(--line);background:transparent;color:var(--ink3);cursor:pointer;transition:all .15s;border-radius:3px;margin-top:3px}
+.btn-add-pausa:hover{border-color:var(--accent);color:var(--accent);border-style:solid}
+.pausas-resumen{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;padding:7px 10px;background:var(--line2);border-radius:4px;font-family:var(--mono);font-size:9px;color:var(--ink3)}
+.pausas-resumen strong{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -771,14 +864,14 @@ body.modo-viewer .btn-del-row{display:none}
           pmds{f}, sm1{i,fi}, rate{f}
 ══════════════════ */
 let PROJS=[
-  {id:1,n:"Monseñor Enrique Alvear",   bip:"50001659",cod_infra:"",ano:2025,arq:"JLE",arqs:["JLE"],nota:"",monto_total:225725,desglose:[{ano:2025,monto:225725}],     est:"Pendiente",ini:"2025-03-01",obs:"",tipo:"conservacion",entregas:[],h:{}},
-  {id:2,n:"Mustafa Kemal Ataturk",     bip:"50001538",cod_infra:"",ano:2025,arq:"EL",arqs:["EL"],nota:"",monto_total:301327,desglose:[{ano:2025,monto:301327}],     est:"Pendiente",ini:"2025-04-15",obs:"",tipo:"",entregas:[],h:{}},
-  {id:3,n:"Gladys Valenzuela",         bip:"S/I",cod_infra:"",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:250000,desglose:[{ano:2025,monto:50000},{ano:2026,monto:200000}],est:"En curso", ini:"2025-06-01",obs:"",tipo:"",entregas:[],h:{}},
-  {id:4,n:"Ignacio Carrera Pinto",     bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:100000,desglose:[{ano:2026,monto:100000}],     est:"Pendiente",ini:"2026-01-10",obs:"",tipo:"",entregas:[],h:{}},
+  {id:1,n:"Monseñor Enrique Alvear",   bip:"50001659",cod_infra:"",ano:2025,arq:"JLE",arqs:["JLE"],nota:"",monto_total:225725,desglose:[{ano:2025,monto:225725}],     est:"Pendiente",ini:"2025-03-01",obs:"",tipo:"conservacion",entregas:[],pausas:[],h:{}},
+  {id:2,n:"Mustafa Kemal Ataturk",     bip:"50001538",cod_infra:"",ano:2025,arq:"EL",arqs:["EL"],nota:"",monto_total:301327,desglose:[{ano:2025,monto:301327}],     est:"Pendiente",ini:"2025-04-15",obs:"",tipo:"",entregas:[],pausas:[],h:{}},
+  {id:3,n:"Gladys Valenzuela",         bip:"S/I",cod_infra:"",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:250000,desglose:[{ano:2025,monto:50000},{ano:2026,monto:200000}],est:"En curso", ini:"2025-06-01",obs:"",tipo:"",entregas:[],pausas:[],h:{}},
+  {id:4,n:"Ignacio Carrera Pinto",     bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:100000,desglose:[{ano:2026,monto:100000}],     est:"Pendiente",ini:"2026-01-10",obs:"",tipo:"",entregas:[],pausas:[],h:{}},
   {id:5,n:"República de Estados Unidos",bip:"S/I",cod_infra:"",    ano:2026,arq:"JLE",arqs:["JLE"],nota:"",monto_total:50000,desglose:[{ano:2026,monto:50000}],     est:"En curso", ini:"2026-03-17",obs:"",tipo:"",entregas:[],
     h:{vt1:{f:"2026-03-17",n:"Visita a terreno"},dev:{i:"2026-03-17",fi:"2026-04-01"}}},
-  {id:6,n:"Sargento Candelaria",       bip:"S/I",cod_infra:"",     ano:2026,arq:"EL",arqs:["EL"],nota:"",monto_total:150000,desglose:[{ano:2025,monto:20000},{ano:2026,monto:130000}],est:"Pendiente",ini:"2026-02-01",obs:"",tipo:"",entregas:[],h:{}},
-  {id:7,n:"Sor Teresa de los Andes",   bip:"S/I",cod_infra:"",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:100000,desglose:[{ano:2025,monto:100000}],     est:"Pendiente",ini:"2025-09-01",obs:"",tipo:"",entregas:[],h:{}},
+  {id:6,n:"Sargento Candelaria",       bip:"S/I",cod_infra:"",     ano:2026,arq:"EL",arqs:["EL"],nota:"",monto_total:150000,desglose:[{ano:2025,monto:20000},{ano:2026,monto:130000}],est:"Pendiente",ini:"2026-02-01",obs:"",tipo:"",entregas:[],pausas:[],h:{}},
+  {id:7,n:"Sor Teresa de los Andes",   bip:"S/I",cod_infra:"",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:100000,desglose:[{ano:2025,monto:100000}],     est:"Pendiente",ini:"2025-09-01",obs:"",tipo:"",entregas:[],pausas:[],h:{}},
   {id:8,n:"Vicente Huidobro",          bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:100000,desglose:[{ano:2026,monto:100000}],     est:"En curso", ini:"2026-03-31",obs:"",tipo:"",entregas:[],
     h:{vt1:{f:"2026-03-31",n:"31 mar"},vt2:{i:"2026-04-13",fi:"2026-04-17",n:"13–17 abr"}}},
   {id:9,n:"Golda Meir",                bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:0,desglose:[],     est:"En curso", ini:"2026-04-13",obs:"",tipo:"",entregas:[],
@@ -1359,6 +1452,11 @@ function projHtml(p,idx,maxD){
       <div class="etapas-lbl">— Etapas del proyecto</div>
       <div class="etapas-flow">${etapasHtml(p)}</div>
       ${(tlRows||tlRowsNA)?`<div class="tl-lbl">— Registro de hitos</div><div class="tl-rows">${tlRows}${tlRowsNA}</div>`:""}
+      <div class="pausas-wrap">
+        <div class="pausas-lbl">— Pausas del proyecto</div>
+        <div id="pausas_${p.id}">${renderPausas(p)}</div>
+        <button class="btn-add-pausa" onclick="addPausa(${p.id})">+ Registrar pausa</button>
+      </div>
       <div class="entregas-wrap">
         <div class="entregas-lbl">— Seguimiento de entregas</div>
         <div id="entregas_${p.id}">${renderEntregas(p)}</div>
@@ -1436,10 +1534,10 @@ function saveNuevo(){
   if(!selArqs.length){alert("Selecciona al menos un arquitecto");return}
   PROJS.push({id:nxt++,n,bip:document.getElementById("n_bip").value||"S/I",
     ano:parseInt(document.getElementById("n_ano").value),arq:selArqs[0],arqs:selArqs,
-    cod_infra:"",monto_total:parseInt(document.getElementById("n_monto_total").value)||0,desglose:recogerDesgloseNuevo(),
+    cod_infra:"",pausas:[],monto_total:parseInt(document.getElementById("n_monto_total").value)||0,desglose:recogerDesgloseNuevo(),
     est:document.getElementById("n_est").value,ini:document.getElementById("n_ini").value||null,
     obs:document.getElementById("n_obs").value,nota:document.getElementById("n_obs").value,
-    tipo:document.getElementById("n_tipo").value,entregas:[],h:{}});
+    tipo:document.getElementById("n_tipo").value,entregas:[],pausas:[],h:{}});
   ["n_nom","n_bip","n_monto_total","n_obs","n_ini"].forEach(i=>document.getElementById(i).value="");
   document.getElementById("n_tipo").value="";
   nuevosAnos=[];
@@ -1654,6 +1752,80 @@ function showTT(e,html){
   tt.style.left=(e.clientX+12)+"px";tt.style.top=(e.clientY-10)+"px";
 }
 function hideTT(){document.getElementById("tooltip").classList.remove("show")}
+
+/* ─── PAUSAS ─── */
+function renderPausas(p){
+  const paus=p.pausas||[];
+  // Calcular total de días hábiles pausados
+  let totalPausado=0;
+  paus.forEach(pa=>{
+    if(!pa.desde)return;
+    const ds=norm(pD(pa.desde));
+    const dh=pa.hasta?norm(pD(pa.hasta)):norm(HOY);
+    if(ds)totalPausado+=diasHabiles(ds,dh);
+  });
+
+  const resumen=paus.length?`<div class="pausas-resumen">
+    <span>Pausas registradas: <strong>${paus.length}</strong></span>
+    <span>Días hábiles pausados: <strong>${totalPausado}</strong></span>
+  </div>`:'';
+
+  if(!paus.length)
+    return`<div style="font-family:var(--mono);font-size:9px;color:var(--ink3);padding:3px 0">// Sin pausas — el contador usa días hábiles corridos</div>`;
+
+  return resumen+paus.map((pa,i)=>{
+    const activa=pa.desde&&!pa.hasta;
+    return`<div class="pausa-row${activa?' activa':''}">
+      <div class="pausa-field">
+        <label>Inicio pausa</label>
+        <input type="date" value="${pa.desde||''}" onchange="updPausa(${p.id},${i},'desde',this.value)"/>
+      </div>
+      <div class="pausa-field">
+        <label>Fin pausa <span style="opacity:.5">(vacío = activa)</span></label>
+        <input type="date" value="${pa.hasta||''}" onchange="updPausa(${p.id},${i},'hasta',this.value)"/>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+        ${activa?`<span class="pausa-badge-activa">⏸ activa</span>`:''}
+        <button class="btn-del-pausa" onclick="delPausa(${p.id},${i})" title="Eliminar pausa">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="pausa-field pausa-motivo">
+        <label>Motivo</label>
+        <input type="text" value="${pa.motivo||''}" placeholder="Ej: Espera visado, feriados..." onchange="updPausa(${p.id},${i},'motivo',this.value)"/>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addPausa(id){
+  const p=PROJS.find(x=>x.id===id);
+  if(!p.pausas)p.pausas=[];
+  if(p.pausas.some(pa=>pa.desde&&!pa.hasta)){
+    alert("Ya hay una pausa activa. Registra la fecha de fin antes de agregar otra.");
+    return;
+  }
+  p.pausas.push({desde:'',hasta:'',motivo:''});
+  reRenderPausas(id);
+}
+function delPausa(id,i){
+  const p=PROJS.find(x=>x.id===id);
+  if(p&&p.pausas){p.pausas.splice(i,1);reRenderPausas(id);renderLista();}
+}
+function updPausa(id,i,campo,val){
+  const p=PROJS.find(x=>x.id===id);
+  if(p&&p.pausas&&p.pausas[i]){
+    p.pausas[i][campo]=val;
+    reRenderPausas(id);
+    // refrescar contador en la fila
+    renderLista();
+  }
+}
+function reRenderPausas(id){
+  const p=PROJS.find(x=>x.id===id);
+  const el=document.getElementById('pausas_'+id);
+  if(el&&p)el.innerHTML=renderPausas(p);
+}
 
 /* ─── CAMPOS INLINE EDITABLES ─── */
 function updCampoInline(id,campo,val){
