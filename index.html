@@ -835,28 +835,29 @@ const fmtD=s=>{if(!s)return null;const d=pD(s);return`${d.getDate().toString().p
 const fmtS=s=>{if(!s)return null;const d=pD(s);return`${d.getDate().toString().padStart(2,"0")}/${(d.getMonth()+1).toString().padStart(2,"0")}`};
 const pesos=n=>n?"$ "+n.toLocaleString("es-CL"):"—";
 // Fecha del hito más reciente completado
-function getFechaHitoReciente(p){
-  // Contar hasta la fecha de término del desarrollo (dev.fi)
-  // Si dev.fi existe y es <= hoy, usar esa fecha
-  // Si dev.fi no existe pero dev.i existe, contar hasta hoy (en desarrollo)
-  // Si no hay desarrollo registrado, contar hasta hoy
-  if(p.h.dev?.fi){
-    const d=pD(p.h.dev.fi);
-    if(d&&d<=HOY)return d;
+// Días hábiles (lun-vie) entre dos fechas
+function diasHabiles(desde,hasta){
+  if(!desde||!hasta||hasta<desde)return 0;
+  let count=0;
+  const cur=new Date(desde);
+  while(cur<=hasta){
+    const dow=cur.getDay();
+    if(dow!==0&&dow!==6)count++;
+    cur.setDate(cur.getDate()+1);
   }
-  return null; // null = contar hasta hoy
+  return count;
 }
 
-// Períodos de revisión automática (Infra y MDS)
+// Períodos en que el contador se PAUSA (revisión Infra o MDS sin subsanación)
 function getPeriodosRevision(p){
   const periodos=[];
-  // Revisión Inframineduc: entre pinf.f y si1.i (o si2.i o hoy si no hay subs)
+  // Revisión Inframineduc: desde pinf.f hasta si1.i (o hasta hoy si no hay subs aún)
   if(p.h.pinf?.f){
     const ini=pD(p.h.pinf.f);
     const fin=p.h.si1?.i?pD(p.h.si1.i):(p.h.si2?.i?pD(p.h.si2.i):null);
     if(ini)periodos.push({ini,fin,tipo:'infra'});
   }
-  // Revisión MDS: entre pmds.f y sm1.i (o hoy si no hay subs)
+  // Revisión MDS: desde pmds.f hasta sm1.i
   if(p.h.pmds?.f){
     const ini=pD(p.h.pmds.f);
     const fin=p.h.sm1?.i?pD(p.h.sm1.i):null;
@@ -865,51 +866,55 @@ function getPeriodosRevision(p){
   return periodos;
 }
 
-// Estado actual del proyecto respecto a revisiones
+// Estado actual del proyecto
 function getEstadoDias(p){
   const rev=getPeriodosRevision(p);
   for(const r of rev){
     if(r.ini&&!r.fin&&HOY>=r.ini)return r.tipo==='infra'?'revision_infra':'revision_mds';
   }
+  // Pausa manual activa
+  if((p.pausas||[]).some(pa=>pa.desde&&!pa.hasta))return'pausado';
   return 'activo';
 }
 
-// Días efectivos = días calendario - días en revisión automática - días en pausa manual
+// Días hábiles de trabajo efectivo:
+// Cuenta lun-vie desde inicio hasta HOY,
+// descontando períodos de revisión y pausas manuales
 function diasEfectivos(p){
   if(!p.ini)return 0;
   const ini=pD(p.ini);
-  const hitoReciente=getFechaHitoReciente(p);
-  const fin=hitoReciente&&hitoReciente<HOY?hitoReciente:HOY;
-  const totalCal=Math.max(0,Math.floor((fin-ini)/86400000));
-  if(!totalCal)return 0;
+  if(!ini)return 0;
 
-  // Sumar días en revisión automática
-  let diasRev=0;
+  // Días hábiles totales desde inicio hasta hoy
+  let total=diasHabiles(ini,HOY);
+  if(!total)return 0;
+
+  // Restar días hábiles en revisión automática
   for(const r of getPeriodosRevision(p)){
     if(!r.ini)continue;
-    const s=Math.max(r.ini,ini);
-    const e=r.fin?Math.min(r.fin,fin):fin;
-    if(e>s)diasRev+=Math.floor((e-s)/86400000);
+    const s=new Date(Math.max(r.ini,ini));
+    const e=r.fin?new Date(Math.min(r.fin,HOY)):new Date(HOY);
+    if(e>=s)total-=diasHabiles(s,e);
   }
 
-  // Sumar días en pausa manual
-  let diasPausa=0;
+  // Restar días hábiles en pausas manuales
   for(const pa of (p.pausas||[])){
     if(!pa.desde)continue;
-    const ps=pD(pa.desde),pe=pa.hasta?pD(pa.hasta):fin;
+    const ps=pD(pa.desde);
+    const pe=pa.hasta?pD(pa.hasta):HOY;
     if(!ps)continue;
-    const s=Math.max(ps,ini),e=Math.min(pe,fin);
-    if(e>s)diasPausa+=Math.floor((e-s)/86400000)+1;
+    const s=new Date(Math.max(ps,ini));
+    const e=new Date(Math.min(pe,HOY));
+    if(e>=s)total-=diasHabiles(s,e);
   }
-  return Math.max(0,totalCal-diasRev-diasPausa);
+  return Math.max(0,total);
 }
 
 function diasCalendario(p){
   if(!p.ini)return 0;
   const ini=pD(p.ini);
-  const hitoReciente=getFechaHitoReciente(p);
-  const fin=hitoReciente&&hitoReciente<HOY?hitoReciente:HOY;
-  return Math.max(0,Math.floor((fin-ini)/86400000));
+  if(!ini)return 0;
+  return Math.max(0,Math.floor((HOY-ini)/86400000));
 }
 
 const dias=p=>{
