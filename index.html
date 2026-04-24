@@ -666,6 +666,16 @@ body.modo-equipo .btn-del-row{display:none}
 .interv-display.vacio{color:var(--ink3);font-style:italic;background:transparent;border-left-color:var(--line);font-family:var(--mono);font-size:9px}
 .interv-display:hover::after{content:" ✏ editar";font-size:8px;color:var(--ink3);font-family:var(--mono);margin-left:6px}
 .interv-hint{font-family:var(--mono);font-size:8px;color:var(--ink3);margin-top:4px;letter-spacing:.04em}
+
+/* ─── CONTADOR DÍAS DESGLOSADO ─── */
+.dias-block{display:flex;align-items:center;background:var(--bg);border-left:1px solid var(--line2);border-right:1px solid var(--line2);padding:6px 13px;flex-shrink:0;cursor:pointer;transition:background .1s;min-width:100px}
+.dias-block:hover{background:var(--line2)}
+.dias-total-num{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1}
+.dias-total-lbl{font-family:var(--mono);font-size:8px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
+.dias-hito-row{display:flex;align-items:center;gap:4px;margin-top:4px;padding-top:4px;border-top:1px solid var(--line2)}
+.dias-hito-num{font-family:var(--mono);font-size:13px;font-weight:700;line-height:1}
+.dias-hito-lbl{font-family:var(--mono);font-size:7px;color:var(--ink3);line-height:1.3;letter-spacing:.04em}
+.dias-estado-badge{font-family:var(--mono);font-size:7px;padding:1px 5px;border-radius:2px;margin-top:3px;display:inline-block;letter-spacing:.03em}
 </style>
 </head>
 <body>
@@ -1190,6 +1200,45 @@ const dias=p=>{
   if(typeof p==='string'||typeof p==='undefined')return 0;
   return diasEfectivos(p);
 };
+// Obtiene el hito actualmente en curso y cuántos días lleva
+function getHitoActual(p){
+  const hoy=norm(HOY);
+  // Orden de etapas — buscar la última con inicio pero sin término
+  const etapas=[
+    {k:'vt1',lbl:'Visita terreno 1',col:'#0F6E56'},
+    {k:'vt2',lbl:'Visita terreno 2',col:'#0F6E56'},
+    {k:'vt3',lbl:'Visita terreno 3',col:'#0F6E56'},
+    {k:'dev',lbl:'Desarrollo',col:'#185FA5'},
+    {k:'rev',lbl:'Revisión',col:'#3B6D11'},
+    {k:'sub',lbl:'Subsanación',col:'#A32D2D'},
+    {k:'pinf',lbl:'Inframineduc',col:'#534AB7'},
+    {k:'si1',lbl:'Subs. Infra 1',col:'#534AB7'},
+    {k:'si2',lbl:'Subs. Infra 2',col:'#711580'},
+    {k:'pmds',lbl:'MDS',col:'#993C1D'},
+    {k:'sm1',lbl:'Subs. MDS',col:'#854F0B'},
+    {k:'rate',lbl:'Rate MDS',col:'#0C447C'},
+  ];
+  // Buscar hito activo: tiene inicio pero no fin, o fin >= hoy
+  let hitoActivo=null;
+  for(const e of etapas){
+    const hv=p.h[e.k];
+    if(!hv)continue;
+    const ini=hv.i||hv.f;
+    const fin=hv.fi||hv.f;
+    if(!ini)continue;
+    const iniD=norm(pD(ini));
+    const finD=fin?norm(pD(fin)):null;
+    // Si tiene inicio y no tiene fin (o fin es hoy o futuro) → está en curso
+    if(!finD||finD>=hoy){
+      hitoActivo={lbl:e.lbl,col:e.col,ini:iniD,fin:finD};
+    }
+  }
+  if(!hitoActivo)return null;
+  // Calcular días hábiles desde inicio del hito hasta hoy
+  const diasH=diasHabiles(hitoActivo.ini,hoy);
+  return{...hitoActivo,dias:diasH};
+}
+
 const hCnt=h=>Object.keys(h).filter(k=>{const v=h[k];return v&&(v.f||v.i)}).length;
 const estCls=e=>({"En curso":"est-curso","Pendiente":"est-pend","Completado":"est-ok"}[e]||"est-pend");
 const dcol=(d,maxD)=>{const r=d/(maxD||1);return r>0.8?"#E24B4A":r>0.5?"#EF9F27":"#3A7BA0"};
@@ -1733,12 +1782,14 @@ function projHtml(p,idx,maxD){
         <div class="p-meta"><span class="p-bip">BIP ${p.bip}</span>${nh>0?`<div class="htags">${htags}</div>`:""}</div>
       </div>
       <div class="dias-block" onclick="toggle(${p.id})" style="${estadoDias!=='activo'?'background:#FFF8F0':''}">
-        <div>
-          <div class="dias-num" style="color:${estadoDias==='revision_infra'?'#534AB7':estadoDias==='revision_mds'?'#993C1D':dc}">${d}</div>
-          <div class="dias-lbl">días<br>efectivos</div>
-          <div class="dias-bar-track"><div class="dias-bar-fill" style="width:${pct}%;background:${dc}"></div></div>
-          ${estadoDias==='revision_infra'?`<div style="font-family:var(--mono);font-size:6px;color:#534AB7;margin-top:3px;letter-spacing:.03em">EN REVISIÓN INFRA</div>`:''}
-          ${estadoDias==='revision_mds'?`<div style="font-family:var(--mono);font-size:6px;color:#993C1D;margin-top:3px;letter-spacing:.03em">EN REVISIÓN MDS</div>`:''}
+        <div style="min-width:80px">
+          <div class="dias-total-num" style="color:${estadoDias==='revision_infra'?'#534AB7':estadoDias==='revision_mds'?'#993C1D':dc}">${d}</div>
+          <div class="dias-total-lbl">días efectivos</div>
+          <div class="dias-bar-track" style="margin-top:3px"><div class="dias-bar-fill" style="width:${pct}%;background:${dc}"></div></div>
+          ${estadoDias==='revision_infra'?`<div class="dias-estado-badge" style="background:#EEEDFE;color:#534AB7">⏸ en revisión infra</div>`:''}
+          ${estadoDias==='revision_mds'?`<div class="dias-estado-badge" style="background:#FBEAF0;color:#993C1D">⏸ en revisión MDS</div>`:''}
+          ${estadoDias==='pausado'?`<div class="dias-estado-badge" style="background:#FAEEDA;color:#854F0B">⏸ pausado</div>`:''}
+          ${(()=>{const ha=getHitoActual(p);if(!ha||ha.dias===undefined)return'';return`<div class="dias-hito-row"><div><div class="dias-hito-num" style="color:${ha.col}">${ha.dias}</div><div class="dias-hito-lbl">${ha.lbl}</div></div></div>`;})()}
         </div>
       </div>
       <div class="p-right">
