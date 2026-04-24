@@ -15,7 +15,7 @@
   --danger:#E24B4A;--danger-bg:#FCEBEB;
   --mono:'Space Mono',monospace;--sans:'Space Grotesk',sans-serif;
 }
-body{font-size:15px;font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:100vh;padding:1.5rem}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:100vh;padding:1.5rem}
 .wrap{max-width:1040px;margin:0 auto}
 
 /* ─── HEADER ─── */
@@ -25,43 +25,43 @@ body{font-size:15px;font-family:var(--sans);background:var(--bg);color:var(--ink
 .hdr-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .hdr-logo-area{display:flex;align-items:center;gap:14px}
 .hdr-logo-div{width:1px;height:42px;background:var(--line)}
-.hdr-title-main{font-size:18px;font-weight:600;color:var(--ink);text-transform:uppercase;letter-spacing:.04em;line-height:1.15}
+.hdr-title-main{font-size:16px;font-weight:600;color:var(--ink);text-transform:uppercase;letter-spacing:.04em;line-height:1.15}
 .hdr-title-main span{color:var(--accent)}
-.hdr-title-sub{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
-.hdr-ref{font-family:var(--mono);font-size:10px;color:var(--ink3);text-align:right;line-height:1.9;letter-spacing:.05em}
+.hdr-title-sub{font-family:var(--mono);font-size:8px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+.hdr-ref{font-family:var(--mono);font-size:8px;color:var(--ink3);text-align:right;line-height:1.9;letter-spacing:.05em}
 .hdr-divider{height:1px;background:linear-gradient(90deg,var(--accent),var(--accent2),transparent);margin:10px 0 8px}
 .kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:1px;background:var(--line)}
 .kpi{background:var(--paper);padding:9px 13px;position:relative;overflow:hidden}
 .kpi::after{content:attr(data-n);position:absolute;right:-2px;bottom:-8px;font-family:var(--mono);font-size:40px;font-weight:700;color:var(--ink);opacity:.04;line-height:1;pointer-events:none}
-.kpi-l{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:3px}
-.kpi-v{font-size:24px;font-weight:500;color:var(--ink);font-family:var(--mono);line-height:1}
-.kpi-s{font-size:10px;color:var(--ink3);margin-top:2px;font-family:var(--mono)}
+.kpi-l{font-family:var(--mono);font-size:8px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:3px}
+.kpi-v{font-size:20px;font-weight:500;color:var(--ink);font-family:var(--mono);line-height:1}
+.kpi-s{font-size:8px;color:var(--ink3);margin-top:2px;font-family:var(--mono)}
 
 /* ─── TABS ─── */
 .tabs{display:flex;gap:0;margin-bottom:.85rem;border-bottom:2px solid var(--line)}
-.tab-btn{font-family:var(--mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;padding:8px 18px;border:none;background:transparent;color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s}
+.tab-btn{font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:8px 18px;border:none;background:transparent;color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s}
 .tab-btn:hover{color:var(--ink)}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:700}
 .view{display:none}.view.active{display:block}
 
 /* ─── LISTA: CONTROLES ─── */
 .ctrl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:.85rem}
-.ctrl select{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:6px 11px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;text-transform:uppercase;outline:none;border-radius:0}
+.ctrl select{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:6px 11px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;text-transform:uppercase;outline:none;border-radius:0}
 .ctrl select:focus{border-color:var(--accent)}
 .ctrl-sep{width:1px;height:22px;background:var(--line)}
 .grupo-btns{display:flex}
-.gbtn{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:6px 12px;border:1px solid var(--line);background:var(--paper);color:var(--ink3);cursor:pointer;text-transform:uppercase;transition:all .15s;border-right:none}
+.gbtn{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:6px 12px;border:1px solid var(--line);background:var(--paper);color:var(--ink3);cursor:pointer;text-transform:uppercase;transition:all .15s;border-right:none}
 .gbtn:last-child{border-right:1px solid var(--line)}
 .gbtn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .gbtn:hover:not(.active){background:var(--line2)}
-.btn-add{font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:6px 14px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;text-transform:uppercase;margin-left:auto;transition:all .15s}
+.btn-add{font-family:var(--mono);font-size:9px;letter-spacing:.08em;padding:6px 14px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;text-transform:uppercase;margin-left:auto;transition:all .15s}
 .btn-add:hover{background:var(--accent)}
 
 /* ─── GRUPOS ─── */
 .year-group{margin-bottom:1.1rem}
 .year-banner{display:flex;align-items:center;gap:12px;padding:8px 14px;background:var(--ink);border-radius:6px 6px 0 0}
-.year-num{font-family:var(--mono);font-size:15px;font-weight:700;color:#fff;letter-spacing:.05em}
-.year-count{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.06em}
+.year-num{font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;letter-spacing:.05em}
+.year-count{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.06em}
 .year-stats{display:flex;gap:14px;margin-left:auto}
 .year-stat{font-family:var(--mono);font-size:8px;color:rgba(255,255,255,.6)}
 .year-stat strong{color:rgba(255,255,255,.9)}
@@ -76,20 +76,20 @@ body{font-size:15px;font-family:var(--sans);background:var(--bg);color:var(--ink
 .p-accent{width:4px;flex-shrink:0}
 .p-main{flex:1;padding:9px 13px;min-width:0;cursor:pointer;transition:background .1s}
 .p-main:hover{background:var(--line2)}
-.p-name{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .p-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.p-bip{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.05em}
+.p-bip{font-family:var(--mono);font-size:8px;color:var(--ink3);letter-spacing:.05em}
 .htags{display:flex;gap:3px;flex-wrap:wrap}
-.htag{font-family:var(--mono);font-size:9px;border:1px solid currentColor;padding:1px 5px;border-radius:20px;letter-spacing:.04em;white-space:nowrap}
+.htag{font-family:var(--mono);font-size:7px;border:1px solid currentColor;padding:1px 5px;border-radius:20px;letter-spacing:.04em;white-space:nowrap}
 .dias-block{display:flex;align-items:center;background:var(--bg);border-left:1px solid var(--line2);border-right:1px solid var(--line2);padding:5px 13px;flex-shrink:0;cursor:pointer;transition:background .1s}
 .dias-block:hover{background:var(--line2)}
-.dias-num{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1}
-.dias-lbl{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.07em;text-transform:uppercase;line-height:1.4}
+.dias-num{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1}
+.dias-lbl{font-family:var(--mono);font-size:7px;color:var(--ink3);letter-spacing:.07em;text-transform:uppercase;line-height:1.4}
 .dias-bar-track{height:3px;background:var(--line);margin-top:4px;width:42px}
 .dias-bar-fill{height:100%}
 .p-right{display:flex;align-items:center;gap:6px;padding:0 10px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
 .p-arq{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;font-weight:700;flex-shrink:0}
-.est{font-family:var(--mono);font-size:10px;font-weight:500;padding:3px 8px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.est{font-family:var(--mono);font-size:8px;font-weight:500;padding:3px 8px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
 .est-curso{background:#EBF3FB;color:#185FA5}
 .est-pend{background:#FAEEDA;color:#854F0B}
 .est-ok{background:#EAF3DE;color:#3B6D11}
@@ -104,8 +104,8 @@ body{font-size:15px;font-family:var(--sans);background:var(--bg);color:var(--ink
 .p-detail{display:none;border-top:1px solid var(--line2);background:#F8FBFD;padding:15px 15px 15px 48px}
 .p-detail.open{display:block}
 .det-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:11px;margin-bottom:13px}
-.det-field .dl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:2px}
-.det-field .dv{font-size:14px;font-weight:500;color:var(--ink)}
+.det-field .dl{font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:2px}
+.det-field .dv{font-size:12px;font-weight:500;color:var(--ink)}
 .ppto-wrap{margin-bottom:14px}
 .ppto-nums{display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:var(--ink3);margin-bottom:4px;flex-wrap:wrap;gap:4px}
 .ppto-track{height:5px;background:var(--line);display:flex}
@@ -117,15 +117,15 @@ body{font-size:15px;font-family:var(--sans);background:var(--bg);color:var(--ink
 .etapa-node{width:27px;height:27px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;background:var(--paper)}
 .etapa-node.done{border-color:var(--nc,#3A7BA0);background:var(--nc,#3A7BA0)}
 .etapa-node svg{width:11px;height:11px}
-.etapa-lbl{font-family:var(--mono);font-size:9px;color:var(--ink3);text-align:center;margin-top:3px;max-width:44px;line-height:1.3}
-.etapa-fecha{font-family:var(--mono);font-size:8px;color:var(--ink3);text-align:center;margin-top:1px}
+.etapa-lbl{font-family:var(--mono);font-size:7px;color:var(--ink3);text-align:center;margin-top:3px;max-width:44px;line-height:1.3}
+.etapa-fecha{font-family:var(--mono);font-size:6px;color:var(--ink3);text-align:center;margin-top:1px}
 .etapa-line{flex:1;height:2px;background:var(--line);min-width:14px;margin-top:-13px;z-index:0}
 .etapa-line.done{background:var(--lc,#3A7BA0)}
 .tl-rows{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
 .tl-row{display:flex;align-items:center;gap:8px}
-.tl-name{font-family:var(--mono);font-size:10px;color:var(--ink3);width:125px;flex-shrink:0}
+.tl-name{font-family:var(--mono);font-size:8px;color:var(--ink3);width:125px;flex-shrink:0}
 .tl-line{flex:1;height:1px;background:var(--line)}
-.tl-node{display:flex;align-items:center;gap:5px;border:1px solid currentColor;padding:2px 8px;font-family:var(--mono);font-size:10px;white-space:nowrap;border-radius:2px}
+.tl-node{display:flex;align-items:center;gap:5px;border:1px solid currentColor;padding:2px 8px;font-family:var(--mono);font-size:8px;white-space:nowrap;border-radius:2px}
 .tl-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
 .det-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 .det-btn{font-family:var(--mono);font-size:8px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--line);background:var(--paper);color:var(--ink3);cursor:pointer;transition:all .12s}
@@ -280,15 +280,15 @@ body{font-size:15px;font-family:var(--sans);background:var(--bg);color:var(--ink
 /* ─── NOTA GENERAL ─── */
 .nota-wrap{margin-top:12px;border-top:1px solid var(--line2);padding-top:10px}
 .nota-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
-.nota-display{font-size:13px;color:var(--ink);line-height:1.6;white-space:pre-wrap;padding:8px 10px;border-radius:4px;border-left:3px solid var(--accent);background:var(--line2);cursor:pointer;min-height:36px}
+.nota-display{font-size:11px;color:var(--ink);line-height:1.6;white-space:pre-wrap;padding:8px 10px;border-radius:4px;border-left:3px solid var(--accent);background:var(--line2);cursor:pointer;min-height:36px}
 .nota-display.vacio{color:var(--ink3);font-style:italic;background:transparent;border-left-color:var(--line);font-family:var(--mono);font-size:9px}
 .nota-display:hover::after{content:" ✏ editar";font-size:8px;color:var(--ink3);font-family:var(--mono);margin-left:6px}
-.nota-textarea{width:100%;font-family:var(--sans);font-size:13px;padding:8px 10px;border:0.5px solid var(--accent);border-radius:4px;background:var(--paper);color:var(--ink);outline:none;resize:vertical;min-height:70px;line-height:1.6}
+.nota-textarea{width:100%;font-family:var(--sans);font-size:11px;padding:8px 10px;border:0.5px solid var(--accent);border-radius:4px;background:var(--paper);color:var(--ink);outline:none;resize:vertical;min-height:70px;line-height:1.6}
 /* ─── SAVE BAR ─── */
 .save-bar{display:flex;align-items:center;gap:8px;padding:7px 14px;background:var(--ink);border-radius:0 0 10px 10px;margin-bottom:.85rem;flex-wrap:wrap}
-.save-status{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.04em;flex:1;min-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.save-status{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.4);letter-spacing:.04em;flex:1;min-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .save-status.ok{color:#9FE1CB}.save-status.warn{color:#FAC775}
-.sbtn{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.7);cursor:pointer;transition:all .15s;white-space:nowrap;border-radius:2px}
+.sbtn{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.7);cursor:pointer;transition:all .15s;white-space:nowrap;border-radius:2px}
 .sbtn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.4);color:#fff}
 .sbtn.hi{background:var(--accent);border-color:var(--accent);color:#fff}
 .sbtn.hi:hover{background:var(--accent2)}
@@ -332,7 +332,7 @@ body{font-size:15px;font-family:var(--sans);background:var(--bg);color:var(--ink
 
 /* ─── AVATAR INICIALES + FOTO HOVER ─── */
 .arq-avatar-wrap{position:relative;width:32px;height:32px;flex-shrink:0;cursor:pointer}
-.arq-avatar-init{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;border:2px solid rgba(255,255,255,.6);transition:opacity .15s}
+.arq-avatar-init{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;font-weight:700;border:2px solid rgba(255,255,255,.6);transition:opacity .15s}
 .arq-avatar-foto{position:absolute;inset:0;width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid rgba(255,255,255,.6);opacity:0;transition:opacity .2s;pointer-events:none}
 .arq-avatar-wrap:hover .arq-avatar-foto{opacity:1}
 .arq-avatar-wrap:hover .arq-avatar-init{opacity:0}
@@ -343,7 +343,7 @@ body{font-size:15px;font-family:var(--sans);background:var(--bg);color:var(--ink
 .arq-card-cargo{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.04em;margin-top:1px}
 
 /* ─── MODO CLOUD ─── */
-.modo-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:20px;letter-spacing:.04em}
+.modo-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;padding:3px 9px;border-radius:20px;letter-spacing:.04em}
 .modo-badge.viewer{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
 .modo-badge.editor{background:var(--accent);color:#fff}
 .modo-badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 2s infinite}
@@ -416,75 +416,6 @@ body.modo-viewer .btn-del-row{display:none}
 .carga-etapa-badge{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:7px;padding:1px 6px;border-radius:10px;white-space:nowrap;font-weight:700;letter-spacing:.04em}
 /* sin proyectos */
 .carga-empty{padding:16px 20px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.05em}
-
-/* ─── INTERVENCIONES ─── */
-function puedeEditarIntervenciones(p){
-  if(nivelAcceso===2)return true;
-  if(nivelAcceso===1&&(p.arqs||[p.arq]).includes(usuarioActual))return true;
-  return false;
-}
-
-function renderIntervenciones(p){
-  const texto=p.intervenciones_texto||'';
-  const puedeEditar=puedeEditarIntervenciones(p);
-  if(!puedeEditar){
-    if(!texto)return'';
-    // Mostrar cada línea como ítem con guión
-    const lineas=texto.split('\n').filter(l=>l.trim());
-    const html=lineas.map(l=>`<div style="font-size:11px;color:var(--ink);line-height:1.8">— ${l.trim()}</div>`).join('');
-    return`<div style="padding:6px 0">${html}</div>`;
-  }
-  return`
-    <div id="interv_display_${p.id}" class="interv-display${texto?'':' vacio'}"
-      onclick="editarIntervTexto(${p.id})">${
-      texto
-        ?texto.split('\n').filter(l=>l.trim()).map(l=>`— ${l.trim()}`).join('\n')
-        :'Sin intervenciones — clic para agregar'
-    }</div>
-    <textarea class="interv-textarea" id="interv_ta_${p.id}" style="display:none"
-      onblur="guardarIntervTexto(${p.id})"
-      onkeydown="if(event.key==='Escape')cancelarIntervTexto(${p.id})"
-      placeholder="Escribe cada intervención y presiona Enter para agregar otra&#10;Ej:&#10;Reposición cubierta sector norte&#10;Reparación de baños 1° piso&#10;Reposición de ventanas">${texto}</textarea>
-    <div class="interv-hint">Escribe cada intervención y presiona Enter — se mostrará con guión (—)</div>`;
-}
-
-function editarIntervTexto(id){
-  const disp=document.getElementById('interv_display_'+id);
-  const ta=document.getElementById('interv_ta_'+id);
-  const hint=document.querySelector(`#interv_wrap_${id} .interv-hint`);
-  if(disp)disp.style.display='none';
-  if(ta){ta.style.display='block';ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);}
-  if(hint)hint.style.display='block';
-}
-
-function guardarIntervTexto(id){
-  const ta=document.getElementById('interv_ta_'+id);
-  const disp=document.getElementById('interv_display_'+id);
-  const p=PROJS.find(x=>x.id===id);
-  if(!ta||!disp||!p)return;
-  const texto=ta.value.trim();
-  p.intervenciones_texto=texto;
-  // Actualizar display
-  const lineas=texto.split('\n').filter(l=>l.trim());
-  disp.textContent=lineas.length?lineas.map(l=>`— ${l.trim()}`).join('\n'):'Sin intervenciones — clic para agregar';
-  disp.className='interv-display'+(texto?'':' vacio');
-  ta.style.display='none';
-  disp.style.display='block';
-  guardarNube();
-}
-
-function cancelarIntervTexto(id){
-  const ta=document.getElementById('interv_ta_'+id);
-  const disp=document.getElementById('interv_display_'+id);
-  if(ta)ta.style.display='none';
-  if(disp)disp.style.display='block';
-}
-
-function reRenderIntervenciones(id){
-  const p=PROJS.find(x=>x.id===id);
-  const el=document.getElementById('interv_wrap_'+id);
-  if(el&&p)el.innerHTML=renderIntervenciones(p);
-}
 
 /* ─── PAUSAS ─── */
 function renderPausas(p){
@@ -576,12 +507,12 @@ function reRenderPausas(id){
 
 /* ─── PAUSAS ─── */
 .pausas-wrap{margin-top:14px;border-top:1px solid var(--line2);padding-top:12px}
-.pausas-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.pausas-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
 .pausa-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;padding:8px 10px;background:var(--paper);border:0.5px solid var(--line);border-radius:3px;margin-bottom:5px}
 .pausa-row:hover{border-color:var(--accent2)}
 .pausa-row.activa{border-color:#EF9F27;background:#FFFBF2}
-.pausa-field label{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:3px}
-.pausa-field input{font-family:var(--mono);font-size:12px;padding:5px 7px;border:0.5px solid var(--line);background:var(--bg);color:var(--ink);outline:none;border-radius:2px;width:100%}
+.pausa-field label{font-family:var(--mono);font-size:7px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:3px}
+.pausa-field input{font-family:var(--mono);font-size:10px;padding:5px 7px;border:0.5px solid var(--line);background:var(--bg);color:var(--ink);outline:none;border-radius:2px;width:100%}
 .pausa-field input:focus{border-color:var(--accent)}
 .pausa-motivo{grid-column:1/-1}
 .pausa-motivo input{font-size:9px}
@@ -593,88 +524,12 @@ function reRenderPausas(id){
 .pausas-resumen{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;padding:7px 10px;background:var(--line2);border-radius:4px;font-family:var(--mono);font-size:9px;color:var(--ink3)}
 .pausas-resumen strong{color:var(--ink)}
 
-/* ─── NIVELES DE ACCESO ─── */
-.modo-badge.equipo{background:#0F6E56;color:#fff}
-.lock-box-arq{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.lock-arq-btn{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:6px;cursor:pointer;transition:all .12s;background:transparent;width:100%;text-align:left}
-.lock-arq-btn:hover{border-color:var(--accent);background:var(--line2)}
-.lock-arq-foto{width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0}
-.lock-arq-init{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;font-weight:700;flex-shrink:0}
-.lock-arq-nombre{font-size:12px;font-weight:500;color:var(--ink);flex:1}
-.lock-arq-cargo{font-family:var(--mono);font-size:8px;color:var(--ink3)}
-.lock-back{font-family:var(--mono);font-size:9px;color:var(--ink3);cursor:pointer;margin-bottom:12px;display:inline-flex;align-items:center;gap:4px;background:none;border:none;padding:0}
-.lock-back:hover{color:var(--ink)}
-/* solicitudes eliminadas */
-/* ocultar controles según modo */
-body.modo-equipo .btn-add,
-body.modo-equipo .btn-del-row,
-body.modo-equipo .det-btn-del,
-body.modo-equipo .ppto-total-input,
-body.modo-equipo .ppto-ano-input,
-body.modo-equipo .ppto-desglose-toggle,
-body.modo-equipo .inline-select
-{pointer-events:none;opacity:.35}
-body.modo-equipo .btn-add{display:none}
-body.modo-equipo .btn-del-row{display:none}
-
-/* ─── REGISTRO EQUIPO ─── */
-.reg-equipo-wrap{margin-top:12px;border-top:1px solid var(--line2);padding-top:10px}
-.reg-eq-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
-.reg-eq-form{background:var(--line2);border-radius:6px;padding:10px 12px;margin-bottom:8px}
-.reg-eq-grid{display:grid;grid-template-columns:auto 1fr 1fr;gap:8px;align-items:end;flex-wrap:wrap}
-.reg-eq-field label{font-family:var(--mono);font-size:7px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:3px}
-.reg-eq-field input,.reg-eq-field select,.reg-eq-field textarea{font-family:var(--mono);font-size:10px;padding:5px 7px;border:0.5px solid var(--line);border-radius:2px;background:var(--paper);color:var(--ink);outline:none;width:100%}
-.reg-eq-field input:focus,.reg-eq-field select:focus,.reg-eq-field textarea:focus{border-color:var(--accent)}
-.reg-eq-field textarea{resize:none;height:42px;font-size:9px}
-.btn-reg-eq{font-family:var(--mono);font-size:9px;padding:6px 14px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer;border-radius:2px;margin-top:8px;white-space:nowrap}
-.btn-reg-eq:hover{background:var(--accent2)}
-.reg-eq-log{display:flex;flex-direction:column;gap:5px;margin-top:6px}
-.reg-eq-item{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;background:var(--paper);border:0.5px solid var(--line);border-radius:4px;font-size:11px}
-.reg-eq-item-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:3px}
-.reg-eq-item-body{flex:1;min-width:0}
-.reg-eq-item-titulo{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
-.reg-eq-item-meta{font-family:var(--mono);font-size:10px;color:var(--ink3)}
-.reg-eq-item-nota{font-size:10px;color:var(--ink3);margin-top:3px;font-style:italic}
-.btn-del-reg{border:none;background:transparent;cursor:pointer;color:var(--ink3);font-size:11px;padding:0;line-height:1;flex-shrink:0;transition:color .12s}
-.btn-del-reg:hover{color:var(--danger)}
-
-/* ─── SUBIDA PDF ─── */
-.pdf-upload-wrap{margin-top:8px}
-.pdf-drop-zone{border:2px dashed var(--line);border-radius:6px;padding:14px;text-align:center;cursor:pointer;transition:all .15s;background:var(--paper)}
-.pdf-drop-zone:hover,.pdf-drop-zone.drag{border-color:var(--accent);background:var(--line2)}
-.pdf-drop-zone p{font-family:var(--mono);font-size:9px;color:var(--ink3);margin-bottom:4px}
-.pdf-drop-zone input[type=file]{display:none}
-.pdf-atendido-input{width:100%;font-family:var(--mono);font-size:10px;padding:5px 7px;border:0.5px solid var(--line);border-radius:2px;background:var(--paper);color:var(--ink);outline:none;margin-bottom:6px}
-.pdf-atendido-input:focus{border-color:var(--accent)}
-.pdf-progreso{font-family:var(--mono);font-size:9px;color:var(--accent);margin-top:6px;display:none}
-.pdf-error{font-family:var(--mono);font-size:9px;color:#E24B4A;margin-top:4px;display:none}
-.pdf-adjunto{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--line2);border-radius:4px;margin-top:5px;font-family:var(--mono);font-size:9px}
-.pdf-adjunto-icon{color:#E24B4A;font-size:14px;flex-shrink:0}
-.pdf-adjunto-nombre{flex:1;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pdf-adjunto-atendido{color:var(--ink3);font-size:8px}
-.pdf-adjunto-link{color:var(--accent);cursor:pointer;text-decoration:underline;white-space:nowrap}
-.pdf-adjunto-link:hover{color:var(--accent2)}
-.btn-del-pdf{border:none;background:transparent;cursor:pointer;color:var(--ink3);font-size:11px;padding:0;transition:color .12s}
-.btn-del-pdf:hover{color:var(--danger)}
-
-/* ─── INTERVENCIONES ─── */
-.interv-wrap{margin-top:14px;border-top:1px solid var(--line2);padding-top:12px}
-.interv-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
-.interv-textarea{width:100%;font-family:var(--sans);font-size:13px;padding:9px 11px;border:0.5px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);outline:none;resize:vertical;min-height:90px;line-height:1.7}
-.interv-textarea:focus{border-color:var(--accent)}
-.interv-display{width:100%;font-size:13px;color:var(--ink);line-height:1.8;white-space:pre-wrap;background:var(--line2);padding:9px 11px;border-radius:4px;border-left:3px solid var(--accent);cursor:pointer;min-height:40px}
-.interv-display.vacio{color:var(--ink3);font-style:italic;background:transparent;border-left-color:var(--line);font-family:var(--mono);font-size:9px}
-.interv-display:hover::after{content:" ✏ editar";font-size:8px;color:var(--ink3);font-family:var(--mono);margin-left:6px}
-.interv-hint{font-family:var(--mono);font-size:8px;color:var(--ink3);margin-top:4px;letter-spacing:.04em}
-
 /* ─── CONTADOR DÍAS DESGLOSADO ─── */
-.dias-block{display:flex;align-items:center;background:var(--bg);border-left:1px solid var(--line2);border-right:1px solid var(--line2);padding:6px 13px;flex-shrink:0;cursor:pointer;transition:background .1s;min-width:100px}
-.dias-block:hover{background:var(--line2)}
 .dias-total-num{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1}
 .dias-total-lbl{font-family:var(--mono);font-size:8px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
-.dias-hito-row{display:flex;align-items:center;gap:4px;margin-top:4px;padding-top:4px;border-top:1px solid var(--line2)}
-.dias-hito-num{font-family:var(--mono);font-size:13px;font-weight:700;line-height:1}
-.dias-hito-lbl{font-family:var(--mono);font-size:7px;color:var(--ink3);line-height:1.3;letter-spacing:.04em}
+.dias-hito-row{display:flex;align-items:center;gap:5px;margin-top:5px;padding-top:4px;border-top:1px solid var(--line2)}
+.dias-hito-num{font-family:var(--mono);font-size:14px;font-weight:700;line-height:1}
+.dias-hito-lbl{font-family:var(--mono);font-size:7px;color:var(--ink3);line-height:1.3;letter-spacing:.03em}
 .dias-estado-badge{font-family:var(--mono);font-size:7px;padding:1px 5px;border-radius:2px;margin-top:3px;display:inline-block;letter-spacing:.03em}
 </style>
 </head>
@@ -994,42 +849,14 @@ body.modo-equipo .btn-del-row{display:none}
 <!-- MODAL CONTRASEÑA EDITOR -->
 <div class="lock-overlay" id="lockOverlay">
   <div class="lock-box">
-    <!-- Paso 1: elegir quién -->
-    <div id="lockStep1">
-      <h3>Iniciar sesión</h3>
-      <p style="font-family:var(--mono);font-size:9px;color:var(--ink3);margin-bottom:14px;letter-spacing:.04em">¿Quién eres?</p>
-      <div class="lock-box-arq">
-        <button class="lock-arq-btn" onclick="seleccionarArq('PH')">
-          <img class="lock-arq-foto" src="" id="lock_foto_PH" onerror="this.style.display='none'"/>
-          <div><div class="lock-arq-nombre">Pía Hernández</div><div class="lock-arq-cargo">Encargada de Área</div></div>
-        </button>
-        <button class="lock-arq-btn" onclick="seleccionarArq('JLE')">
-          <img class="lock-arq-foto" src="" id="lock_foto_JLE" onerror="this.style.display='none'"/>
-          <div><div class="lock-arq-nombre">José Luis Escalona</div><div class="lock-arq-cargo">Arquitecto</div></div>
-        </button>
-        <button class="lock-arq-btn" onclick="seleccionarArq('EL')">
-          <img class="lock-arq-foto" src="" id="lock_foto_EL" onerror="this.style.display='none'"/>
-          <div><div class="lock-arq-nombre">Eduardo Lizarde</div><div class="lock-arq-cargo">Arquitecto</div></div>
-        </button>
-        <button class="lock-arq-btn" onclick="seleccionarArq('PF')">
-          <img class="lock-arq-foto" src="" id="lock_foto_PF" onerror="this.style.display='none'"/>
-          <div><div class="lock-arq-nombre">Paloma Fernández</div><div class="lock-arq-cargo">Arquitecta</div></div>
-        </button>
-      </div>
-      <div class="lock-btns"><button class="btn-cancelar-lock" onclick="closeLock()">Cancelar</button></div>
-    </div>
-    <!-- Paso 2: ingresar contraseña -->
-    <div id="lockStep2" style="display:none">
-      <button class="lock-back" onclick="volverStep1()">← volver</button>
-      <h3 id="lockStep2Title">Contraseña</h3>
-      <p style="font-family:var(--mono);font-size:9px;color:var(--ink3);margin-bottom:12px;letter-spacing:.04em" id="lockStep2Sub"></p>
-      <input class="lock-input" type="password" id="lockInput" placeholder="••••••••••••"
-        onkeydown="if(event.key==='Enter')verificarClave()"/>
-      <div class="lock-error" id="lockError">Contraseña incorrecta</div>
-      <div class="lock-btns">
-        <button class="btn-cancelar-lock" onclick="closeLock()">Cancelar</button>
-        <button class="btn-unlock" onclick="verificarClave()">Ingresar</button>
-      </div>
+    <h3>Modo edición</h3>
+    <p>Ingresa la contraseña para activar<br>el modo de edición</p>
+    <input class="lock-input" type="password" id="lockInput" placeholder="••••••••••••"
+      onkeydown="if(event.key==='Enter')verificarClave()"/>
+    <div class="lock-error" id="lockError">Contraseña incorrecta</div>
+    <div class="lock-btns">
+      <button class="btn-cancelar-lock" onclick="closeLock()">Cancelar</button>
+      <button class="btn-unlock" onclick="verificarClave()">Ingresar</button>
     </div>
   </div>
 </div>
@@ -1045,14 +872,14 @@ body.modo-equipo .btn-del-row{display:none}
           pmds{f}, sm1{i,fi}, rate{f}
 ══════════════════ */
 let PROJS=[
-  {id:1,n:"Monseñor Enrique Alvear",   bip:"50001659",cod_infra:"",ano:2025,arq:"JLE",arqs:["JLE"],nota:"",monto_total:225725,desglose:[{ano:2025,monto:225725}],     est:"Pendiente",ini:"2025-03-01",obs:"",tipo:"conservacion",entregas:[],pausas:[],solicitudes:[],registros:[],intervenciones:[],h:{}},
-  {id:2,n:"Mustafa Kemal Ataturk",     bip:"50001538",cod_infra:"",ano:2025,arq:"EL",arqs:["EL"],nota:"",monto_total:301327,desglose:[{ano:2025,monto:301327}],     est:"Pendiente",ini:"2025-04-15",obs:"",tipo:"",entregas:[],pausas:[],solicitudes:[],registros:[],intervenciones:[],h:{}},
-  {id:3,n:"Gladys Valenzuela",         bip:"S/I",cod_infra:"",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:250000,desglose:[{ano:2025,monto:50000},{ano:2026,monto:200000}],est:"En curso", ini:"2025-06-01",obs:"",tipo:"",entregas:[],pausas:[],solicitudes:[],registros:[],intervenciones:[],h:{}},
-  {id:4,n:"Ignacio Carrera Pinto",     bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:100000,desglose:[{ano:2026,monto:100000}],     est:"Pendiente",ini:"2026-01-10",obs:"",tipo:"",entregas:[],pausas:[],solicitudes:[],registros:[],intervenciones:[],h:{}},
+  {id:1,n:"Monseñor Enrique Alvear",   bip:"50001659",cod_infra:"",ano:2025,arq:"JLE",arqs:["JLE"],nota:"",monto_total:225725,desglose:[{ano:2025,monto:225725}],     est:"Pendiente",ini:"2025-03-01",obs:"",tipo:"conservacion",entregas:[],pausas:[],h:{}},
+  {id:2,n:"Mustafa Kemal Ataturk",     bip:"50001538",cod_infra:"",ano:2025,arq:"EL",arqs:["EL"],nota:"",monto_total:301327,desglose:[{ano:2025,monto:301327}],     est:"Pendiente",ini:"2025-04-15",obs:"",tipo:"",entregas:[],pausas:[],h:{}},
+  {id:3,n:"Gladys Valenzuela",         bip:"S/I",cod_infra:"",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:250000,desglose:[{ano:2025,monto:50000},{ano:2026,monto:200000}],est:"En curso", ini:"2025-06-01",obs:"",tipo:"",entregas:[],pausas:[],h:{}},
+  {id:4,n:"Ignacio Carrera Pinto",     bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:100000,desglose:[{ano:2026,monto:100000}],     est:"Pendiente",ini:"2026-01-10",obs:"",tipo:"",entregas:[],pausas:[],h:{}},
   {id:5,n:"República de Estados Unidos",bip:"S/I",cod_infra:"",    ano:2026,arq:"JLE",arqs:["JLE"],nota:"",monto_total:50000,desglose:[{ano:2026,monto:50000}],     est:"En curso", ini:"2026-03-17",obs:"",tipo:"",entregas:[],
     h:{vt1:{f:"2026-03-17",n:"Visita a terreno"},dev:{i:"2026-03-17",fi:"2026-04-01"}}},
-  {id:6,n:"Sargento Candelaria",       bip:"S/I",cod_infra:"",     ano:2026,arq:"EL",arqs:["EL"],nota:"",monto_total:150000,desglose:[{ano:2025,monto:20000},{ano:2026,monto:130000}],est:"Pendiente",ini:"2026-02-01",obs:"",tipo:"",entregas:[],pausas:[],solicitudes:[],registros:[],intervenciones:[],h:{}},
-  {id:7,n:"Sor Teresa de los Andes",   bip:"S/I",cod_infra:"",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:100000,desglose:[{ano:2025,monto:100000}],     est:"Pendiente",ini:"2025-09-01",obs:"",tipo:"",entregas:[],pausas:[],solicitudes:[],registros:[],intervenciones:[],h:{}},
+  {id:6,n:"Sargento Candelaria",       bip:"S/I",cod_infra:"",     ano:2026,arq:"EL",arqs:["EL"],nota:"",monto_total:150000,desglose:[{ano:2025,monto:20000},{ano:2026,monto:130000}],est:"Pendiente",ini:"2026-02-01",obs:"",tipo:"",entregas:[],pausas:[],h:{}},
+  {id:7,n:"Sor Teresa de los Andes",   bip:"S/I",cod_infra:"",     ano:2025,arq:"PF",arqs:["PF"],nota:"",monto_total:100000,desglose:[{ano:2025,monto:100000}],     est:"Pendiente",ini:"2025-09-01",obs:"",tipo:"",entregas:[],pausas:[],h:{}},
   {id:8,n:"Vicente Huidobro",          bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:100000,desglose:[{ano:2026,monto:100000}],     est:"En curso", ini:"2026-03-31",obs:"",tipo:"",entregas:[],
     h:{vt1:{f:"2026-03-31",n:"31 mar"},vt2:{i:"2026-04-13",fi:"2026-04-17",n:"13–17 abr"}}},
   {id:9,n:"Golda Meir",                bip:"S/I",cod_infra:"",     ano:2026,arq:"PH",arqs:["PH"],nota:"",monto_total:0,desglose:[],     est:"En curso", ini:"2026-04-13",obs:"",tipo:"",entregas:[],
@@ -1200,10 +1027,9 @@ const dias=p=>{
   if(typeof p==='string'||typeof p==='undefined')return 0;
   return diasEfectivos(p);
 };
-// Obtiene el hito actualmente en curso y cuántos días lleva
+// Obtiene el hito actualmente en curso y sus días hábiles
 function getHitoActual(p){
   const hoy=norm(HOY);
-  // Orden de etapas — buscar la última con inicio pero sin término
   const etapas=[
     {k:'vt1',lbl:'Visita terreno 1',col:'#0F6E56'},
     {k:'vt2',lbl:'Visita terreno 2',col:'#0F6E56'},
@@ -1218,25 +1044,17 @@ function getHitoActual(p){
     {k:'sm1',lbl:'Subs. MDS',col:'#854F0B'},
     {k:'rate',lbl:'Rate MDS',col:'#0C447C'},
   ];
-  // Buscar hito activo: tiene inicio pero no fin, o fin >= hoy
   let hitoActivo=null;
   for(const e of etapas){
-    const hv=p.h[e.k];
-    if(!hv)continue;
-    const ini=hv.i||hv.f;
-    const fin=hv.fi||hv.f;
-    if(!ini)continue;
+    const hv=p.h[e.k];if(!hv)continue;
+    const ini=hv.i||hv.f;if(!ini)continue;
     const iniD=norm(pD(ini));
+    const fin=hv.fi||hv.f;
     const finD=fin?norm(pD(fin)):null;
-    // Si tiene inicio y no tiene fin (o fin es hoy o futuro) → está en curso
-    if(!finD||finD>=hoy){
-      hitoActivo={lbl:e.lbl,col:e.col,ini:iniD,fin:finD};
-    }
+    if(!finD||finD>=hoy)hitoActivo={lbl:e.lbl,col:e.col,ini:iniD};
   }
   if(!hitoActivo)return null;
-  // Calcular días hábiles desde inicio del hito hasta hoy
-  const diasH=diasHabiles(hitoActivo.ini,hoy);
-  return{...hitoActivo,dias:diasH};
+  return{...hitoActivo,dias:diasHabiles(hitoActivo.ini,hoy)};
 }
 
 const hCnt=h=>Object.keys(h).filter(k=>{const v=h[k];return v&&(v.f||v.i)}).length;
@@ -1451,200 +1269,6 @@ function recogerDesgloseNuevo(){
   return des;
 }
 
-/* ─── REGISTRO DE HITOS EQUIPO ─── */
-const TIPOS_REG=[
-  {v:'vt',lbl:'Visita a terreno',col:'#0F6E56'},
-  {v:'reunion',lbl:'Reunión',col:'#185FA5'},
-  {v:'levantamiento',lbl:'Levantamiento',col:'#534AB7'},
-  {v:'observacion',lbl:'Observación importante',col:'#993C1D'},
-  {v:'otro',lbl:'Otro',col:'#8AABB8'},
-];
-
-function renderRegistroEquipo(p){
-  const regs=(p.registros||[]);
-  // ¿Puede este usuario registrar en este proyecto?
-  const esAsignado=(p.arqs||[p.arq]).includes(usuarioActual);
-  const puedeRegistrar=nivelAcceso===2||(nivelAcceso===1&&esAsignado);
-
-  // Si no hay sesión iniciada y no hay registros, no mostrar nada
-  if(nivelAcceso===0&&!regs.length)return'';
-
-  const form=puedeRegistrar?`
-    <div class="reg-eq-form">
-      <div class="reg-eq-lbl">+ Agregar registro</div>
-      <div class="reg-eq-grid">
-        <div class="reg-eq-field">
-          <label>Tipo</label>
-          <select id="reg_tipo_${p.id}" onchange="toggleCamposVT(${p.id},this.value)">
-            ${TIPOS_REG.map(t=>`<option value="${t.v}">${t.lbl}</option>`).join('')}
-          </select>
-        </div>
-        <div class="reg-eq-field">
-          <label>Fecha</label>
-          <input type="date" id="reg_fecha_${p.id}" value="${new Date().toISOString().slice(0,10)}"/>
-        </div>
-        <div class="reg-eq-field" style="grid-column:1/-1">
-          <label>Descripción / observaciones</label>
-          <textarea id="reg_desc_${p.id}" placeholder="Ej: Se constató daño en cubierta sector norte, goteras en sala 3..."></textarea>
-        </div>
-      </div>
-      <div id="campos_vt_${p.id}" style="display:block;margin-top:8px">
-        <input class="pdf-atendido-input" id="reg_atendido_${p.id}"
-          placeholder="Nombre de quien atendió la visita (ej: Juan Pérez, Director)"/>
-        <div class="pdf-drop-zone" id="drop_${p.id}"
-          ondragover="event.preventDefault();this.classList.add('drag')"
-          ondragleave="this.classList.remove('drag')"
-          ondrop="handlePDFDrop(event,${p.id})"
-          onclick="document.getElementById('pdf_input_${p.id}').click()">
-          <p>📎 Adjuntar levantamiento PDF</p>
-          <span style="font-family:var(--mono);font-size:8px;color:var(--ink3)">Arrastra o haz clic · máx 10MB</span>
-          <input type="file" id="pdf_input_${p.id}" accept=".pdf" onchange="handlePDFSelect(event,${p.id})"/>
-        </div>
-        <div class="pdf-progreso" id="pdf_prog_${p.id}">⏳ Subiendo...</div>
-        <div class="pdf-error" id="pdf_err_${p.id}"></div>
-        <div id="pdf_preview_${p.id}"></div>
-      </div>
-      <button class="btn-reg-eq" onclick="agregarRegistro(${p.id})">Guardar registro</button>
-    </div>`
-  :(nivelAcceso===1&&!esAsignado?`<div style="font-family:var(--mono);font-size:9px;color:var(--ink3);padding:4px 0;font-style:italic">// Solo puedes registrar en tus proyectos asignados</div>`:'');
-
-  const log=regs.length?`
-    <div class="reg-eq-log">
-      ${regs.map((r,i)=>{
-        const tipo=TIPOS_REG.find(t=>t.v===r.tipo)||TIPOS_REG[4];
-        return`<div class="reg-eq-item">
-          <div class="reg-eq-item-dot" style="background:${tipo.col}"></div>
-          <div class="reg-eq-item-body">
-            <div class="reg-eq-item-titulo">${tipo.lbl}</div>
-            <div class="reg-eq-item-meta">${r.fecha||''}${r.autor?' · '+r.autor:''}</div>
-            ${r.atendido?`<div class="reg-eq-item-meta" style="color:var(--ink)">👤 Atendido por: ${r.atendido}</div>`:''}
-            ${r.desc?`<div class="reg-eq-item-nota">${r.desc}</div>`:''}
-            ${r.pdfUrl?`<div class="pdf-adjunto" style="margin-top:5px">
-              <span class="pdf-adjunto-icon">📄</span>
-              <span class="pdf-adjunto-nombre">${r.pdfNombre||'Levantamiento.pdf'}</span>
-              <a class="pdf-adjunto-link" href="${r.pdfUrl}" target="_blank">Ver PDF</a>
-            </div>`:''}
-          </div>
-          ${nivelAcceso===2||(nivelAcceso===1&&r.autor===ARQ[usuarioActual]?.n)?`<button class="btn-del-reg" onclick="delRegistro(${p.id},${i})" title="Eliminar">✕</button>`:''}
-        </div>`;
-      }).join('')}
-    </div>`:'';
-
-  if(!form&&!log)return'';
-
-  return`<div class="reg-equipo-wrap">
-    <div class="reg-eq-lbl">— Registro del equipo</div>
-    ${form}${log}
-  </div>`;
-}
-
-// PDF pendiente de subida para cada proyecto
-const pdfPendiente={};
-
-function toggleCamposVT(id,tipo){
-  const div=document.getElementById('campos_vt_'+id);
-  if(div)div.style.display=(tipo==='vt'||tipo==='levantamiento')?'block':'none';
-}
-
-function handlePDFDrop(e,id){
-  e.preventDefault();
-  document.getElementById('drop_'+id)?.classList.remove('drag');
-  const f=e.dataTransfer.files[0];
-  if(f)procesarPDF(f,id);
-}
-function handlePDFSelect(e,id){
-  const f=e.target.files[0];
-  if(f)procesarPDF(f,id);
-}
-function procesarPDF(file,id){
-  if(file.type!=='application/pdf'){
-    mostrarPDFError(id,'Solo se aceptan archivos PDF');return;
-  }
-  if(file.size>10*1024*1024){
-    mostrarPDFError(id,'El archivo supera 10MB');return;
-  }
-  pdfPendiente[id]=file;
-  document.getElementById('pdf_preview_'+id).innerHTML=
-    `<div class="pdf-adjunto"><span class="pdf-adjunto-icon">📄</span>
-    <span class="pdf-adjunto-nombre">${file.name}</span>
-    <span class="pdf-adjunto-atendido">${(file.size/1024).toFixed(0)} KB</span>
-    <button class="btn-del-pdf" onclick="cancelarPDF(${id})">✕</button></div>`;
-  document.getElementById('pdf_err_'+id).style.display='none';
-}
-function cancelarPDF(id){
-  delete pdfPendiente[id];
-  document.getElementById('pdf_preview_'+id).innerHTML='';
-  document.getElementById('pdf_input_'+id).value='';
-}
-function mostrarPDFError(id,msg){
-  const el=document.getElementById('pdf_err_'+id);
-  if(el){el.textContent=msg;el.style.display='block';}
-}
-
-async function subirPDF(file,proyId,regIdx){
-  const ext='.pdf';
-  const nombre=`proj_${proyId}_reg_${regIdx}_${Date.now()}${ext}`;
-  const url=`${SB_URL}/storage/v1/object/levantamientos/${nombre}`;
-  const r=await fetch(url,{
-    method:'POST',
-    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/pdf'},
-    body:file
-  });
-  if(!r.ok)throw new Error('Error al subir: '+r.status);
-  return`${SB_URL}/storage/v1/object/public/levantamientos/${nombre}`;
-}
-
-async function agregarRegistro(id){
-  const p=PROJS.find(x=>x.id===id);
-  const tipo=document.getElementById('reg_tipo_'+id)?.value;
-  const fecha=document.getElementById('reg_fecha_'+id)?.value;
-  const desc=document.getElementById('reg_desc_'+id)?.value?.trim();
-  const atendido=document.getElementById('reg_atendido_'+id)?.value?.trim()||'';
-  if(!desc){alert("Agrega una descripción");return}
-  if(!p.registros)p.registros=[];
-
-  const nuevo={tipo,fecha,desc,atendido,
-    autor:usuarioActual?ARQ[usuarioActual]?.n:'',
-    ts:new Date().toISOString(),
-    pdfUrl:null,pdfNombre:null};
-
-  // Subir PDF si hay uno pendiente
-  if(pdfPendiente[id]){
-    const prog=document.getElementById('pdf_prog_'+id);
-    if(prog)prog.style.display='block';
-    try{
-      const file=pdfPendiente[id];
-      nuevo.pdfNombre=file.name;
-      nuevo.pdfUrl=await subirPDF(file,id,Date.now());
-      delete pdfPendiente[id];
-    }catch(e){
-      mostrarPDFError(id,'Error al subir el PDF: '+e.message);
-      if(prog)prog.style.display='none';
-      return;
-    }
-    if(prog)prog.style.display='none';
-  }
-
-  p.registros.unshift(nuevo);
-  document.getElementById('reg_desc_'+id).value='';
-  const atEl=document.getElementById('reg_atendido_'+id);
-  if(atEl)atEl.value='';
-  cancelarPDF(id);
-  reRenderRegistroEquipo(id);
-  guardarNube();
-}
-
-function delRegistro(id,i){
-  const p=PROJS.find(x=>x.id===id);
-  if(p&&p.registros){p.registros.splice(i,1);reRenderRegistroEquipo(id);guardarNube();}
-}
-
-function reRenderRegistroEquipo(id){
-  const p=PROJS.find(x=>x.id===id);
-  const el=document.getElementById('reg_eq_'+id);
-  if(el&&p)el.innerHTML=renderRegistroEquipo(p);
-}
-
 function renderEntregas(p){
   if(!p.entregas||!p.entregas.length)
     return`<div style="font-family:var(--mono);font-size:9px;color:var(--ink3);padding:4px 0;letter-spacing:.04em">// Sin entregas registradas</div>`;
@@ -1729,14 +1353,12 @@ function renderKpis(){
   const ec=ps.filter(p=>p.est==="En curso").length;
   const ch=ps.filter(p=>hCnt(p.h)>0).length;
   const maxD=ps.reduce((a,p)=>Math.max(a,dias(p)),0);
-  // Contar solicitudes pendientes
   document.getElementById("kpis").innerHTML=`
     <div class="kpi" data-n="${ps.length}"><div class="kpi-l">Proyectos</div><div class="kpi-v">${ps.length}</div><div class="kpi-s">en cartera</div></div>
     <div class="kpi" data-n="${ec}"><div class="kpi-l">En curso</div><div class="kpi-v">${ec}</div><div class="kpi-s">activos</div></div>
     <div class="kpi" data-n="${ch}"><div class="kpi-l">Con hitos</div><div class="kpi-v">${ch}</div><div class="kpi-s">registrados</div></div>
     <div class="kpi" data-n="$"><div class="kpi-l">Presupuesto</div><div class="kpi-v" style="font-size:11px;padding-top:4px">${pesos(tot)}</div><div class="kpi-s">monto total</div></div>
-    <div class="kpi" data-n="D"><div class="kpi-l">Máx. días</div><div class="kpi-v">${maxD}</div><div class="kpi-s">proyecto más largo</div></div>
-`;
+    <div class="kpi" data-n="D"><div class="kpi-l">Máx. días</div><div class="kpi-v">${maxD}</div><div class="kpi-s">proyecto más largo</div></div>`;
 }
 
 /* ─── LISTA ─── */
@@ -1782,14 +1404,14 @@ function projHtml(p,idx,maxD){
         <div class="p-meta"><span class="p-bip">BIP ${p.bip}</span>${nh>0?`<div class="htags">${htags}</div>`:""}</div>
       </div>
       <div class="dias-block" onclick="toggle(${p.id})" style="${estadoDias!=='activo'?'background:#FFF8F0':''}">
-        <div style="min-width:80px">
+        <div style="min-width:84px">
           <div class="dias-total-num" style="color:${estadoDias==='revision_infra'?'#534AB7':estadoDias==='revision_mds'?'#993C1D':dc}">${d}</div>
           <div class="dias-total-lbl">días efectivos</div>
           <div class="dias-bar-track" style="margin-top:3px"><div class="dias-bar-fill" style="width:${pct}%;background:${dc}"></div></div>
-          ${estadoDias==='revision_infra'?`<div class="dias-estado-badge" style="background:#EEEDFE;color:#534AB7">⏸ en revisión infra</div>`:''}
-          ${estadoDias==='revision_mds'?`<div class="dias-estado-badge" style="background:#FBEAF0;color:#993C1D">⏸ en revisión MDS</div>`:''}
+          ${estadoDias==='revision_infra'?`<div class="dias-estado-badge" style="background:#EEEDFE;color:#534AB7">⏸ revisión infra</div>`:''}
+          ${estadoDias==='revision_mds'?`<div class="dias-estado-badge" style="background:#FBEAF0;color:#993C1D">⏸ revisión MDS</div>`:''}
           ${estadoDias==='pausado'?`<div class="dias-estado-badge" style="background:#FAEEDA;color:#854F0B">⏸ pausado</div>`:''}
-          ${(()=>{const ha=getHitoActual(p);if(!ha||ha.dias===undefined)return'';return`<div class="dias-hito-row"><div><div class="dias-hito-num" style="color:${ha.col}">${ha.dias}</div><div class="dias-hito-lbl">${ha.lbl}</div></div></div>`;})()}
+          ${(()=>{const ha=getHitoActual(p);if(!ha)return'';return`<div class="dias-hito-row"><div class="dias-hito-num" style="color:${ha.col}">${ha.dias}</div><div class="dias-hito-lbl">&nbsp;${ha.lbl}</div></div>`;})()}
         </div>
       </div>
       <div class="p-right">
@@ -1870,10 +1492,6 @@ function projHtml(p,idx,maxD){
       <div class="etapas-lbl">— Etapas del proyecto</div>
       <div class="etapas-flow">${etapasHtml(p)}</div>
       ${(tlRows||tlRowsNA)?`<div class="tl-lbl">— Registro de hitos</div><div class="tl-rows">${tlRows}${tlRowsNA}</div>`:""}
-      <div class="interv-wrap">
-        <div class="interv-lbl">— Intervenciones del proyecto</div>
-        <div id="interv_wrap_${p.id}">${renderIntervenciones(p)}</div>
-      </div>
       <div class="pausas-wrap">
         <div class="pausas-lbl">— Pausas del proyecto</div>
         <div id="pausas_${p.id}">${renderPausas(p)}</div>
@@ -1892,7 +1510,6 @@ function projHtml(p,idx,maxD){
           onkeydown="if(event.key==='Escape')cancelarNota(${p.id})"
           placeholder="Descripción general, antecedentes, observaciones...">${p.nota||''}</textarea>
       </div>
-      <div id="reg_eq_${p.id}">${renderRegistroEquipo(p)}</div>
       <div class="det-actions">
         <button class="det-btn" onclick="openHitos(${p.id})">Editar hitos →</button>
         <button class="det-btn-del" onclick="pedirEliminar(${p.id})">Eliminar proyecto</button>
@@ -1957,10 +1574,10 @@ function saveNuevo(){
   if(!selArqs.length){alert("Selecciona al menos un arquitecto");return}
   PROJS.push({id:nxt++,n,bip:document.getElementById("n_bip").value||"S/I",
     ano:parseInt(document.getElementById("n_ano").value),arq:selArqs[0],arqs:selArqs,
-    cod_infra:"",pausas:[],solicitudes:[],registros:[],intervenciones:[],intervenciones_texto:"",monto_total:parseInt(document.getElementById("n_monto_total").value)||0,desglose:recogerDesgloseNuevo(),
+    cod_infra:"",pausas:[],monto_total:parseInt(document.getElementById("n_monto_total").value)||0,desglose:recogerDesgloseNuevo(),
     est:document.getElementById("n_est").value,ini:document.getElementById("n_ini").value||null,
     obs:document.getElementById("n_obs").value,nota:document.getElementById("n_obs").value,
-    tipo:document.getElementById("n_tipo").value,entregas:[],pausas:[],solicitudes:[],registros:[],intervenciones:[],h:{}});
+    tipo:document.getElementById("n_tipo").value,entregas:[],pausas:[],h:{}});
   ["n_nom","n_bip","n_monto_total","n_obs","n_ini"].forEach(i=>document.getElementById(i).value="");
   document.getElementById("n_tipo").value="";
   nuevosAnos=[];
@@ -2176,7 +1793,6 @@ function showTT(e,html){
 }
 function hideTT(){document.getElementById("tooltip").classList.remove("show")}
 
-
 /* ─── PAUSAS ─── */
 function renderPausas(p){
   const paus=p.pausas||[];
@@ -2332,17 +1948,6 @@ function syncArqPrincipal(){
   });
 }
 
-/* ─── CONTRASEÑAS ─── */
-const CLAVES={
-  PH: "c812fd1c34a71d9078035a536b086060c883a2e294513c618360d0bb32915ed7",
-  JLE:"af34384b4174098f905835ba54edad00000cf288197646053722f9889ecbb9dd",
-  EL: "63951b20284ffa3aeca98913d219864aaed5b8c10d0287e02825bf7da7185db0",
-  PF: "c32b85d44490971c31a1d8b54d84065771bb02fb526271f86ad51736e1b819d8",
-};
-let arqSeleccionado=null; // arq elegido en paso 1
-let usuarioActual=null;   // 'PH' | 'JLE' | 'EL' | 'PF'
-let nivelAcceso=0;        // 0=viewer, 1=equipo, 2=admin
-
 /* ─── SUPABASE CONFIG ─── */
 const SB_URL="https://tuvdvkyciokorxrfrnwm.supabase.co";
 const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR1dmR2a3ljaW9rb3J4cmZybndtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNjcwNTQsImV4cCI6MjA5MTk0MzA1NH0.M1nQTlIBPsppklfRL4_5M5Yw6rX5NOgpf735i0g0A9s";
@@ -2351,74 +1956,26 @@ const LS_KEY="slep_barrancas_cartera_v1";
 let modoEditor=false;
 let DB_ROW_ID=null;
 
-/* ─── MODO ACCESO ─── */
+/* ─── MODO EDITOR ─── */
 function pedirContrasena(){
-  // Mostrar paso 1
-  document.getElementById("lockStep1").style.display="block";
-  document.getElementById("lockStep2").style.display="none";
   document.getElementById("lockInput").value="";
   document.getElementById("lockError").style.display="none";
-  arqSeleccionado=null;
-  // Cargar fotos en modal
-  Object.entries(ARQ_FOTOS).forEach(([k,src])=>{
-    const el=document.getElementById("lock_foto_"+k);
-    if(el)el.src=src;
-  });
   document.getElementById("lockOverlay").classList.add("open");
-}
-function seleccionarArq(k){
-  arqSeleccionado=k;
-  const a=ARQ[k];
-  document.getElementById("lockStep1").style.display="none";
-  document.getElementById("lockStep2").style.display="block";
-  document.getElementById("lockStep2Title").textContent=a.full;
-  document.getElementById("lockStep2Sub").textContent=a.cargo+" — ingresa tu contraseña";
-  document.getElementById("lockInput").value="";
-  document.getElementById("lockError").style.display="none";
-  setTimeout(()=>document.getElementById("lockInput").focus(),80);
-}
-function volverStep1(){
-  arqSeleccionado=null;
-  document.getElementById("lockStep1").style.display="block";
-  document.getElementById("lockStep2").style.display="none";
-  document.getElementById("lockInput").value="";
-  document.getElementById("lockError").style.display="none";
+  setTimeout(()=>document.getElementById("lockInput").focus(),100);
 }
 function closeLock(){document.getElementById("lockOverlay").classList.remove("open")}
 async function verificarClave(){
-  if(!arqSeleccionado)return;
   const val=document.getElementById("lockInput").value;
   const hash=await sha256(val);
-  if(hash===CLAVES[arqSeleccionado]){
-    usuarioActual=arqSeleccionado;
-    nivelAcceso=arqSeleccionado==="PH"?2:1;
-    modoEditor=nivelAcceso===2;
+  if(hash===EDIT_HASH){
+    modoEditor=true;
     closeLock();
-    document.body.classList.remove("modo-viewer","modo-equipo");
-    if(nivelAcceso===2){
-      document.body.classList.remove("modo-viewer");
-      document.getElementById("modoBadge").className="modo-badge editor";
-      document.getElementById("modoBadge").innerHTML='<span class="modo-badge-dot"></span>Pía · Admin';
-      document.getElementById("btnModoEdit").style.display="none";
-      document.getElementById("btnGuardar").style.display="inline-flex";
-      setStatus("ok","✓ Modo administración — "+ARQ[usuarioActual].full);
-    } else {
-      document.body.classList.add("modo-equipo");
-      document.getElementById("modoBadge").className="modo-badge equipo";
-      document.getElementById("modoBadge").innerHTML='<span class="modo-badge-dot"></span>'+ARQ[usuarioActual].n;
-      document.getElementById("btnModoEdit").style.display="none";
-      document.getElementById("btnGuardar").style.display="inline-flex";
-      setStatus("ok","✓ Sesión iniciada — "+ARQ[usuarioActual].full);
-    }
-    renderLista();
-    // Re-renderizar registros en fichas ya abiertas
-    EXP.forEach(id=>{
-      const p=PROJS.find(x=>x.id===id);
-      if(p){
-        const el=document.getElementById('reg_eq_'+id);
-        if(el)el.innerHTML=renderRegistroEquipo(p);
-      }
-    });
+    document.body.classList.remove("modo-viewer");
+    document.getElementById("modoBadge").className="modo-badge editor";
+    document.getElementById("modoBadge").innerHTML='<span class="modo-badge-dot"></span>Modo edición';
+    document.getElementById("btnModoEdit").style.display="none";
+    document.getElementById("btnGuardar").style.display="inline-flex";
+    setStatus("ok","✓ Modo edición activado — tus cambios se guardan en la nube");
   } else {
     document.getElementById("lockError").style.display="block";
     document.getElementById("lockInput").value="";
@@ -2462,7 +2019,7 @@ async function cargarNube(){
 
 /* ─── GUARDAR EN NUBE ─── */
 async function guardarNube(){
-  if(nivelAcceso===0){pedirContrasena();return}
+  if(!modoEditor){pedirContrasena();return}
   setStatus("","☁ Guardando...");
   try{
     const datos={proyectos:PROJS,nxt,ts:new Date().toISOString()};
@@ -2733,9 +2290,6 @@ function renderCarga(){
 Object.entries(ARQ_FOTOS).forEach(([k,src])=>{
   const img=document.getElementById("foto_chk_"+k);
   if(img)img.src=src;
-  // fotos en modal lock
-  const limg=document.getElementById("lock_foto_"+k);
-  if(limg)limg.src=src;
 });
 // Cargar desde nube (incluye render)
 cargarNube();
