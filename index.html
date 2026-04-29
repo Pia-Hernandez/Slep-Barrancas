@@ -1779,8 +1779,8 @@ function etapasHtml(p){
 }
 
 function projHtml(p,idx,maxD){
-  const a=ARQ[p.arq];const exp=EXP.has(p.id);const d=dias(p);const dc=dcol(d,maxD);const estadoDias=getEstadoDias(p);
-  const pct=Math.min(100,Math.round(d/(maxD||1)*100));
+  const a=ARQ[p.arq];const exp=EXP.has(p.id);const dCal=diasCalendario(p);const dEf=dias(p);const dc=dcol(dEf,maxD);const estadoDias=getEstadoDias(p);
+  const pct=Math.min(100,Math.round(dEf/(maxD||1)*100));
   const nh=hCnt(p.h);const tot=p.monto_total||0;const desglose=p.desglose||[];
   const htags=HDEF.filter(x=>p.h[x.k]&&(p.h[x.k].f||p.h[x.k].i)).map(x=>`<span class="htag" style="color:${x.col}">${x.lbl}</span>`).join("");
   const NA_KEYS={na_vt:["vt1","vt2","vt3"],na_dev:["dev"],na_rev:["rev"],na_sub:["sub"],na_inf:["pinf","si1","si2"],na_mds:["pmds","sm1"],na_rate:["rate"]};
@@ -1803,10 +1803,10 @@ function projHtml(p,idx,maxD){
       </div>
       <div class="dias-block" onclick="toggle(${p.id})" style="${estadoDias!=='activo'?'background:#FFF8F0':''}">
         <div>
-          <div class="dias-num" style="color:${estadoDias==='revision_infra'?'#534AB7':estadoDias==='revision_mds'?'#993C1D':dc}">${d}</div>
-          <div class="dias-lbl">días<br>efectivos</div>
+          <div class="dias-num" style="color:${estadoDias==='revision_infra'?'#534AB7':estadoDias==='revision_mds'?'#993C1D':dc}">${dCal}</div>
+          <div class="dias-lbl">días<br>totales</div>
           <div class="dias-bar-track"><div class="dias-bar-fill" style="width:${pct}%;background:${dc}"></div></div>
-          ${(()=>{const ul=getUltimaEtapa(p);if(!ul)return'';const dh=diasDesdeHito(p,ul);return`<div style="display:flex;align-items:flex-start;gap:4px;margin-top:5px;padding-top:4px;border-top:1px solid var(--line2)"><div style="font-family:var(--mono);font-size:12px;font-weight:700;line-height:1;color:${ul.col};flex-shrink:0">${dh}</div><div style="display:flex;flex-direction:column;gap:1px"><div style="font-family:var(--mono);font-size:6px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:1.2;color:${ul.col}">${ul.nombre}</div><div style="font-family:var(--mono);font-size:6px;color:var(--ink3);line-height:1.3">días desde<br>último hito</div></div></div>`;})()}
+          ${(()=>{const ul=getUltimaEtapa(p);if(!ul)return'';const dh=diasDesdeHito(p,ul);return'<div style="display:flex;align-items:flex-start;gap:4px;margin-top:5px;padding-top:4px;border-top:1px solid var(--line2)"><div style="font-family:var(--mono);font-size:12px;font-weight:700;line-height:1;color:'+ul.col+';flex-shrink:0">'+dh+'</div><div style="display:flex;flex-direction:column;gap:1px"><div style="font-family:var(--mono);font-size:6px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:1.2;color:'+ul.col+'">'+ul.nombre+'</div><div style="font-family:var(--mono);font-size:6px;color:var(--ink3);line-height:1.3">días desde<br>último hito</div></div></div>';})()}
           ${estadoDias==='revision_infra'?`<div style="font-family:var(--mono);font-size:6px;color:#534AB7;margin-top:3px;letter-spacing:.03em">EN REVISIÓN INFRA</div>`:''}
           ${estadoDias==='revision_mds'?`<div style="font-family:var(--mono);font-size:6px;color:#993C1D;margin-top:3px;letter-spacing:.03em">EN REVISIÓN MDS</div>`:''}
         </div>
