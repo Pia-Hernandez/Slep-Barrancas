@@ -1876,7 +1876,7 @@ function projHtml(p,idx,maxD){
         <div class="det-field"><div class="dl">Días efectivos</div>
           <div class="dv">
             <div class="dias-efectivos-wrap">
-              <span class="dias-ef-main" style="color:${estadoDias==='revision_infra'?'#534AB7':estadoDias==='revision_mds'?'#993C1D':dc}">${d}</span>
+              <span class="dias-ef-main" style="color:${estadoDias==='revision_infra'?'#534AB7':estadoDias==='revision_mds'?'#993C1D':dc}">${dEf}</span>
               <span class="dias-ef-sub">de ${diasCalendario(p)} días calendario</span>
               ${estadoDias==='revision_infra'?`<span class="dias-ef-revision activa">⏸ En revisión Inframineduc</span>`:''}
               ${estadoDias==='revision_mds'?`<span class="dias-ef-revision activa" style="background:#FBEAF0;color:#993C1D">⏸ En revisión MDS</span>`:''}
